@@ -3,317 +3,272 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MedalWall · Medal & Race Bib Display Rack</title>
-<meta name="description" content="Display every medal and race bib you've earned on a premium coated-steel rack. Holds 20+ medals plus your bib. Wall plugs included. Rated 4.9 by verified buyers." />
+<title>MERIT — The Medal Display</title>
+<meta name="description" content="A premium coated-steel display for the medals and race bibs you've earned. Editorial, minimal, and built to last." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #ffffff;
-    --bg-soft: #f5f7fa;
-    --bg-softer: #fafbfc;
-    --ink: #0b0d10;
-    --ink-soft: #4c525c;
-    --ink-mute: #8b919b;
-    --line: #e7eaee;
-    --line-soft: #f0f2f5;
-    --accent: #2563eb;
-    --accent-hover: #1d4ed8;
-    --accent-soft: #eef3ff;
-    --gold: #e8b23a;
-    --star: #f5b301;
-    --ok: #24a05a;
-    --radius: 20px;
-    --radius-sm: 12px;
-    --shadow-sm: 0 1px 2px rgba(11,13,16,.04), 0 6px 20px rgba(11,13,16,.05);
-    --shadow-md: 0 10px 34px rgba(11,13,16,.09);
-    --shadow-lg: 0 28px 70px rgba(11,13,16,.14);
-    --maxw: 1200px;
-    --ease: cubic-bezier(.16,1,.3,1);
+    --paper: #f5f2ec;
+    --paper-2: #eee9df;
+    --card: #fbfaf6;
+    --ink: #15120d;
+    --ink-soft: #4f483c;
+    --mute: #928979;
+    --line: #ddd6c8;
+    --line-soft: #e7e1d5;
+    --accent: #a24a2a;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --maxw: 1280px;
+    --ease: cubic-bezier(.19,1,.22,1);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  html { -webkit-text-size-adjust: 100%; }
+  html:not(.lenis) { scroll-behavior: smooth; }
   body {
-    font-family: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg); color: var(--ink); line-height: 1.6;
-    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    font-family: var(--sans); background: var(--paper); color: var(--ink);
+    line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden;
   }
   img { max-width: 100%; display: block; }
   a { color: inherit; text-decoration: none; }
   button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
-  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
-  .cond { font-family: 'Barlow Condensed', 'Barlow', sans-serif; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+  .mono { font-family: var(--mono); text-transform: uppercase; letter-spacing: .18em; font-size: 12px; }
+  ::selection { background: var(--ink); color: var(--paper); }
 
-  /* Accessibility: visible focus */
-  a:focus-visible, button:focus-visible {
-    outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px;
-  }
-  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+  .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+  /* Lenis */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped { overflow: hidden; }
+
+  /* Scroll progress */
+  .progress { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: var(--ink); z-index: 300; }
+
+  /* Custom cursor */
+  .cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; border-radius: 50%; pointer-events: none; z-index: 400; mix-blend-mode: difference; will-change: transform; opacity: 0; }
+  .cursor-dot { width: 7px; height: 7px; background: #fff; margin: -3.5px 0 0 -3.5px; }
+  .cursor-ring { width: 40px; height: 40px; border: 1px solid #fff; margin: -20px 0 0 -20px; transition: width .3s var(--ease), height .3s var(--ease), margin .3s var(--ease); }
+  .cursor-ring.grow { width: 72px; height: 72px; margin: -36px 0 0 -36px; }
+  @media (hover: none) { .cursor-dot, .cursor-ring { display: none; } }
 
   /* ---------- Header ---------- */
-  header {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(255,255,255,.82);
-    backdrop-filter: saturate(180%) blur(16px); -webkit-backdrop-filter: saturate(180%) blur(16px);
-    border-bottom: 1px solid transparent; transition: border-color .3s var(--ease), box-shadow .3s var(--ease);
-  }
-  header.scrolled { border-color: var(--line); box-shadow: var(--shadow-sm); }
-  .nav { display: flex; align-items: center; justify-content: space-between; height: 70px; }
-  .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 24px; letter-spacing: .01em; text-transform: uppercase; }
-  .logo-mark { width: 32px; height: 32px; border-radius: 9px; background: var(--ink); color: #fff; display: grid; place-items: center; }
-  .nav-links { display: flex; gap: 36px; align-items: center; }
-  .nav-links a { font-size: 15px; color: var(--ink-soft); font-weight: 600; transition: color .2s; }
-  .nav-links a:hover { color: var(--ink); }
-  .nav-cta {
-    background: var(--accent); color: #fff; padding: 12px 22px; border-radius: 100px;
-    font-size: 14px; font-weight: 700; letter-spacing: .02em; transition: transform .2s var(--ease), background .2s;
-  }
-  .nav-cta:hover { background: var(--accent-hover); transform: translateY(-1px); }
-  .burger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
-  .burger span { width: 24px; height: 2px; background: var(--ink); border-radius: 2px; transition: .3s; }
+  header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; transition: background .4s var(--ease); }
+  header.solid { background: rgba(245,242,236,.8); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 84px; }
+  .brand { font-family: var(--serif); font-size: 25px; font-weight: 700; letter-spacing: -.01em; }
+  .brand sup { font-family: var(--mono); font-size: 10px; vertical-align: super; letter-spacing: .1em; margin-left: 2px; }
+  .nav-links { display: flex; gap: 40px; }
+  .nav-links a { font-family: var(--mono); text-transform: uppercase; letter-spacing: .14em; font-size: 12px; color: var(--ink-soft); position: relative; transition: color .3s; }
+  .nav-links a::after { content:''; position:absolute; left:0; bottom:-5px; width:0; height:1px; background: var(--ink); transition: width .35s var(--ease); }
+  .nav-links a:hover { color: var(--ink); } .nav-links a:hover::after { width: 100%; }
+  .nav-cart { font-family: var(--mono); text-transform: uppercase; letter-spacing: .12em; font-size: 12px; display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); padding: 11px 18px; border-radius: 100px; transition: background .3s, color .3s, border-color .3s; }
+  .nav-cart:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .burger { display: none; flex-direction: column; gap: 6px; padding: 6px; }
+  .burger span { width: 26px; height: 1.5px; background: var(--ink); transition: .3s; }
 
   /* ---------- Hero ---------- */
-  .hero { padding: 76px 0 40px; }
-  .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 60px; align-items: center; }
-  .badge {
-    display: inline-flex; align-items: center; gap: 9px; background: var(--bg-soft); border: 1px solid var(--line);
-    padding: 8px 15px; border-radius: 100px; font-size: 13px; font-weight: 600; color: var(--ink-soft); margin-bottom: 24px;
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 120px 0 60px; position: relative; }
+  .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center; width: 100%; }
+  .hero-tag { display: flex; align-items: center; gap: 12px; color: var(--mute); margin-bottom: 30px; }
+  .hero-tag .bar { width: 40px; height: 1px; background: var(--mute); }
+  h1.hero-title { font-family: var(--serif); font-weight: 500; font-size: clamp(52px, 8vw, 118px); line-height: .92; letter-spacing: -.025em; }
+  h1.hero-title em { font-style: italic; font-weight: 400; }
+  .word { display: inline-block; overflow: hidden; vertical-align: top; }
+  .word > span { display: inline-block; will-change: transform; }
+  .hero-sub { font-size: 18px; color: var(--ink-soft); max-width: 380px; margin: 34px 0 0; font-weight: 300; }
+  .hero-actions { display: flex; align-items: center; gap: 22px; margin-top: 40px; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--mono); text-transform: uppercase; letter-spacing: .12em; font-size: 12px;
+    display: inline-flex; align-items: center; gap: 10px; padding: 17px 30px; border-radius: 100px; position: relative;
   }
-  .badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 3px rgba(36,160,90,.18); }
-  h1 {
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 800; text-transform: uppercase;
-    font-size: clamp(52px, 7.4vw, 92px); line-height: .92; letter-spacing: -.01em; margin-bottom: 22px;
-  }
-  h1 .hl { color: var(--accent); position: relative; }
-  .hero-sub { font-size: 19px; color: var(--ink-soft); max-width: 500px; margin-bottom: 32px; }
-  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-bottom: 30px; }
-  .btn-primary {
-    background: var(--accent); color: #fff; padding: 16px 32px; border-radius: 100px; font-size: 16px; font-weight: 700;
-    letter-spacing: .02em; display: inline-flex; align-items: center; gap: 10px;
-    transition: transform .2s var(--ease), box-shadow .2s, background .2s; box-shadow: var(--shadow-md);
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); background: var(--accent-hover); }
-  .btn-ghost {
-    padding: 16px 26px; border-radius: 100px; font-size: 16px; font-weight: 700; color: var(--ink);
-    border: 1.5px solid var(--line); transition: border-color .2s, background .2s;
-  }
-  .btn-ghost:hover { border-color: var(--ink-mute); background: var(--bg-soft); }
-  .hero-stats { display: flex; gap: 34px; flex-wrap: wrap; }
-  .hstat .n { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 34px; line-height: 1; letter-spacing: .01em; }
-  .hstat .l { font-size: 13px; color: var(--ink-mute); font-weight: 600; margin-top: 4px; }
-  .hstat .n .star { color: var(--star); }
-
-  /* ---------- Gallery ---------- */
-  .gallery-main {
-    position: relative; background: var(--bg-soft); border: 1px solid var(--line);
-    border-radius: var(--radius); overflow: hidden; aspect-ratio: 4/5; box-shadow: var(--shadow-md);
-  }
-  .gallery-main img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .5s var(--ease); }
-  .gallery-main img.active { opacity: 1; }
-  .gallery-float { position: absolute; z-index: 3; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; box-shadow: var(--shadow-lg); display: flex; gap: 12px; align-items: center; }
-  .gallery-float.tl { top: 18px; left: 18px; }
-  .gallery-float.br { bottom: 18px; right: 18px; }
-  .gf-icon { width: 36px; height: 36px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; }
-  .gf-txt strong { display: block; font-size: 15px; font-weight: 700; font-family: 'Barlow Condensed', sans-serif; letter-spacing: .01em; }
-  .gf-txt span { font-size: 12px; color: var(--ink-mute); }
-  .thumbs { display: flex; gap: 12px; margin-top: 16px; }
-  .thumb { flex: 1; aspect-ratio: 1; border-radius: var(--radius-sm); overflow: hidden; border: 2px solid var(--line); background: var(--bg-soft); transition: border-color .25s, transform .25s var(--ease); }
-  .thumb img { width: 100%; height: 100%; object-fit: cover; }
-  .thumb.active { border-color: var(--accent); }
-  .thumb:hover { transform: translateY(-3px); }
+  .btn-fill { background: var(--ink); color: var(--paper); overflow: hidden; }
+  .btn-fill span { position: relative; z-index: 1; }
+  .btn-fill::before { content:''; position:absolute; inset:0; background: var(--accent); transform: translateY(101%); transition: transform .5s var(--ease); }
+  .btn-fill:hover::before { transform: translateY(0); }
+  .btn-line { color: var(--ink); }
+  .btn-line .arrow { transition: transform .4s var(--ease); }
+  .btn-line:hover .arrow { transform: translateX(6px); }
+  .hero-visual { position: relative; }
+  .hero-media { position: relative; border-radius: 4px; overflow: hidden; background: var(--paper-2); aspect-ratio: 4/5; }
+  .hero-media img { width: 100%; height: 100%; object-fit: cover; will-change: transform; }
+  .hero-media .reveal-mask { position: absolute; inset: 0; background: var(--paper); z-index: 2; transform-origin: top; }
+  .hero-cap { position: absolute; left: -24px; bottom: 34px; background: var(--card); border: 1px solid var(--line); padding: 14px 18px; border-radius: 2px; box-shadow: 0 20px 50px rgba(21,18,13,.12); }
+  .hero-cap .k { font-family: var(--mono); text-transform: uppercase; letter-spacing: .14em; font-size: 10px; color: var(--mute); }
+  .hero-cap .v { font-family: var(--serif); font-size: 20px; font-style: italic; }
+  .scroll-cue { position: absolute; bottom: 30px; left: 32px; display: flex; align-items: center; gap: 12px; color: var(--mute); }
+  .scroll-cue .line { width: 1px; height: 40px; background: var(--line); position: relative; overflow: hidden; }
+  .scroll-cue .line::after { content:''; position:absolute; top:-100%; left:0; width:100%; height:100%; background: var(--ink); animation: cue 2s infinite var(--ease); }
+  @keyframes cue { to { top: 100%; } }
 
   /* ---------- Marquee ---------- */
-  .marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg-softer); overflow: hidden; margin-top: 50px; }
-  .marquee-track { display: flex; gap: 56px; padding: 18px 0; white-space: nowrap; animation: scroll 28s linear infinite; width: max-content; }
-  .marquee-track span { font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; font-size: 18px; font-weight: 700; letter-spacing: .04em; color: var(--ink-mute); display: inline-flex; align-items: center; gap: 14px; }
-  .marquee-track span::before { content: '●'; color: var(--accent); font-size: 8px; }
+  .marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; padding: 26px 0; background: var(--paper); }
+  .marquee-track { display: flex; gap: 44px; white-space: nowrap; width: max-content; animation: scroll 34s linear infinite; }
+  .marquee-track span { font-family: var(--serif); font-size: 30px; font-style: italic; color: var(--ink); display: inline-flex; align-items: center; gap: 44px; }
+  .marquee-track span::after { content: '✳'; font-style: normal; font-size: 16px; color: var(--accent); }
   @keyframes scroll { to { transform: translateX(-50%); } }
 
   /* ---------- Sections ---------- */
-  section { padding: 100px 0; }
-  .sec-head { max-width: 680px; margin: 0 auto 60px; text-align: center; }
-  .eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
-  h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; text-transform: uppercase; font-size: clamp(38px, 5vw, 60px); line-height: .96; letter-spacing: -.005em; margin-bottom: 18px; }
-  .sec-head p { font-size: 18px; color: var(--ink-soft); }
+  section { padding: 140px 0; position: relative; }
+  .sec-num { font-family: var(--mono); text-transform: uppercase; letter-spacing: .2em; font-size: 12px; color: var(--mute); display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+  .sec-num::before { content:''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(38px, 5.2vw, 76px); line-height: 1.0; letter-spacing: -.02em; }
+  h2 em { font-style: italic; font-weight: 400; }
+  .lede { font-size: clamp(22px, 2.6vw, 30px); font-weight: 300; line-height: 1.45; letter-spacing: -.01em; }
 
-  /* Problem / value strip */
-  .value { background: var(--ink); color: #fff; }
-  .value .wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
-  .vstat { text-align: center; }
-  .vstat .n { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: clamp(42px, 5vw, 60px); line-height: 1; }
-  .vstat .n .accent { color: var(--gold); }
-  .vstat .l { font-size: 14px; color: rgba(255,255,255,.62); font-weight: 500; margin-top: 8px; }
+  /* Manifesto */
+  .manifesto .wrap { max-width: 1080px; }
+  .manifesto p { font-family: var(--serif); font-weight: 400; font-size: clamp(26px, 3.4vw, 44px); line-height: 1.32; letter-spacing: -.015em; }
+  .manifesto .w-line { display: block; overflow: hidden; }
+  .manifesto .w-line > span { display: inline-block; will-change: transform; }
+  .manifesto .accent { font-style: italic; color: var(--accent); }
 
-  /* Features */
-  .features { background: var(--bg-softer); }
-  .feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .feat-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 32px; transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s; }
-  .feat-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: transparent; }
-  .feat-icon { width: 54px; height: 54px; border-radius: 14px; background: var(--accent); color: #fff; display: grid; place-items: center; margin-bottom: 22px; }
-  .feat-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: .01em; margin-bottom: 10px; }
-  .feat-card p { font-size: 15px; color: var(--ink-soft); }
+  /* Showcase editorial */
+  .showcase { background: var(--paper-2); }
+  .show-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; margin-bottom: 70px; flex-wrap: wrap; }
+  .show-item { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 120px; }
+  .show-item:last-child { margin-bottom: 0; }
+  .show-item.flip .show-media { order: 2; }
+  .show-media { border-radius: 4px; overflow: hidden; background: var(--paper); aspect-ratio: 5/4; }
+  .show-media img { width: 100%; height: 100%; object-fit: cover; will-change: transform; }
+  .show-text h3 { font-family: var(--serif); font-weight: 500; font-size: clamp(30px, 3.6vw, 48px); line-height: 1.02; letter-spacing: -.02em; margin: 18px 0 20px; }
+  .show-text p { font-size: 17px; color: var(--ink-soft); font-weight: 300; max-width: 400px; }
 
-  /* Showcase */
-  .showcase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  .showcase-card { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); position: relative; background: var(--bg-soft); }
-  .showcase-card img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4/3; transition: transform .6s var(--ease); }
-  .showcase-card:hover img { transform: scale(1.04); }
-  .showcase-cap { position: absolute; left: 20px; bottom: 20px; background: rgba(255,255,255,.95); backdrop-filter: blur(6px); padding: 13px 19px; border-radius: 12px; box-shadow: var(--shadow-sm); }
-  .showcase-cap strong { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; text-transform: uppercase; letter-spacing: .01em; }
-  .showcase-cap span { font-size: 13px; color: var(--ink-mute); }
+  /* Features editorial list */
+  .feat-list { border-top: 1px solid var(--line); }
+  .feat-row { display: grid; grid-template-columns: 80px 1fr 1.1fr; gap: 30px; align-items: start; padding: 44px 0; border-bottom: 1px solid var(--line); transition: padding-left .5s var(--ease); }
+  .feat-row:hover { padding-left: 16px; }
+  .feat-row .idx { font-family: var(--mono); font-size: 13px; color: var(--mute); padding-top: 8px; }
+  .feat-row h3 { font-family: var(--serif); font-weight: 500; font-size: clamp(26px, 3vw, 38px); line-height: 1.05; letter-spacing: -.02em; }
+  .feat-row p { font-size: 16px; color: var(--ink-soft); font-weight: 300; }
 
   /* Specs */
-  .specs { background: var(--bg-softer); }
-  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-  .specs-visual { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 44px; box-shadow: var(--shadow-sm); }
-  .spec-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .specs { background: var(--ink); color: var(--paper); }
+  .specs h2 { color: var(--paper); }
+  .specs .sec-num { color: rgba(245,242,236,.6); }
+  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; margin-top: 20px; }
+  .specs-visual { background: var(--paper); border-radius: 4px; padding: 46px; }
+  .spec-row { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 22px 0; border-bottom: 1px solid rgba(245,242,236,.14); }
   .spec-row:last-child { border-bottom: none; }
-  .spec-row .k { font-size: 15px; color: var(--ink-soft); font-weight: 500; }
-  .spec-row .v { font-family: 'Barlow Condensed', sans-serif; font-size: 19px; font-weight: 700; letter-spacing: .01em; text-align: right; }
+  .spec-row .k { font-family: var(--mono); text-transform: uppercase; letter-spacing: .12em; font-size: 12px; color: rgba(245,242,236,.6); }
+  .spec-row .v { font-family: var(--serif); font-size: clamp(22px, 2.4vw, 30px); font-weight: 500; text-align: right; }
+  .spec-row .v em { font-style: italic; font-weight: 400; }
 
-  /* Reviews / carousel */
-  .rev-top { display: flex; align-items: center; justify-content: center; gap: 34px; flex-wrap: wrap; margin-bottom: 40px; }
-  .rev-score { text-align: center; }
-  .rev-score .num { font-family: 'Barlow Condensed', sans-serif; font-size: 66px; font-weight: 800; line-height: 1; }
-  .stars { display: inline-flex; gap: 3px; }
-  .stars svg { color: var(--star); }
-  .rev-score .cnt { font-size: 14px; color: var(--ink-mute); margin-top: 6px; }
-  .rev-bars { display: flex; flex-direction: column; gap: 8px; min-width: 250px; }
-  .rev-bar { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink-soft); }
-  .rev-bar .lbl { width: 30px; text-align: right; font-weight: 600; }
-  .rev-bar .track { flex: 1; height: 8px; background: var(--line); border-radius: 100px; overflow: hidden; }
-  .rev-bar .fill { height: 100%; background: var(--star); border-radius: 100px; width: 0; transition: width 1s var(--ease); }
-
-  .carousel { position: relative; }
-  .carousel-track {
-    display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
-    padding: 6px 2px 12px; -ms-overflow-style: none; scrollbar-width: none;
-  }
-  .carousel-track::-webkit-scrollbar { display: none; }
-  .rev-card {
-    scroll-snap-align: start; flex: 0 0 calc((100% - 44px) / 3); background: #fff; border: 1px solid var(--line);
-    border-radius: var(--radius); padding: 28px; transition: box-shadow .3s var(--ease), transform .3s var(--ease); display: flex; flex-direction: column;
-  }
-  .rev-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
-  .rev-card .stars { margin-bottom: 14px; }
-  .rev-card p { font-size: 16px; color: var(--ink); margin-bottom: 20px; flex: 1; }
-  .rev-meta { display: flex; align-items: center; gap: 12px; }
-  .rev-av { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 16px; color: #fff; flex-shrink: 0; font-family: 'Barlow Condensed', sans-serif; }
-  .rev-meta .who strong { display: block; font-size: 14px; font-weight: 700; }
-  .rev-meta .who span { font-size: 12px; color: var(--ink-mute); }
-  .verified { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--ok); font-weight: 700; margin-left: auto; }
-  .carousel-ctrl { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 30px; }
-  .carousel-ctrl button.arrow {
-    width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center;
-    color: var(--ink); transition: border-color .2s, background .2s, transform .2s;
-  }
-  .carousel-ctrl button.arrow:hover { border-color: var(--accent); background: var(--accent); color: #fff; }
-  .dots { display: flex; gap: 8px; }
-  .dots button { width: 9px; height: 9px; border-radius: 50%; background: var(--line); transition: background .2s, width .2s; }
-  .dots button.active { background: var(--accent); width: 26px; border-radius: 100px; }
+  /* Reviews */
+  .rev-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; margin-bottom: 60px; }
+  .rev-rating { text-align: right; }
+  .rev-rating .n { font-family: var(--serif); font-size: 60px; line-height: 1; font-weight: 500; }
+  .rev-rating .stars { color: var(--accent); letter-spacing: 3px; font-size: 15px; }
+  .rev-rating .c { font-family: var(--mono); text-transform: uppercase; letter-spacing: .12em; font-size: 11px; color: var(--mute); margin-top: 6px; }
+  .rev-track { display: flex; gap: 28px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 10px; scrollbar-width: none; }
+  .rev-track::-webkit-scrollbar { display: none; }
+  .rev-card { scroll-snap-align: start; flex: 0 0 calc((100% - 56px)/3); border-top: 1px solid var(--line); padding-top: 28px; }
+  .rev-card .q { font-family: var(--serif); font-size: 22px; line-height: 1.4; font-weight: 400; letter-spacing: -.01em; margin-bottom: 26px; min-height: 120px; }
+  .rev-card .meta { display: flex; align-items: center; justify-content: space-between; }
+  .rev-card .who { font-family: var(--mono); text-transform: uppercase; letter-spacing: .1em; font-size: 12px; }
+  .rev-card .who small { display: block; color: var(--mute); letter-spacing: .1em; margin-top: 4px; }
+  .rev-card .vfy { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+  .rev-ctrl { display: flex; align-items: center; gap: 14px; margin-top: 44px; }
+  .rev-ctrl .arrow { width: 54px; height: 54px; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center; transition: background .3s, color .3s, border-color .3s; }
+  .rev-ctrl .arrow:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .rev-ctrl .count { font-family: var(--mono); font-size: 12px; letter-spacing: .12em; color: var(--mute); margin-left: 6px; }
 
   /* FAQ */
-  .faq { background: var(--bg-softer); }
-  .faq-list { max-width: 780px; margin: 0 auto; }
+  .faq-list { border-top: 1px solid var(--line); max-width: 900px; margin: 40px auto 0; }
   .faq-item { border-bottom: 1px solid var(--line); }
-  .faq-q { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 26px 0; text-align: left; font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; text-transform: uppercase; letter-spacing: .01em; }
-  .faq-q .ic { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center; transition: .3s var(--ease); }
-  .faq-item.open .faq-q .ic { transform: rotate(45deg); background: var(--accent); color: #fff; border-color: var(--accent); }
-  .faq-a { max-height: 0; overflow: hidden; transition: max-height .4s var(--ease); }
-  .faq-a p { padding: 0 0 26px; font-size: 16px; color: var(--ink-soft); max-width: 92%; }
+  .faq-q { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 34px 0; text-align: left; font-family: var(--serif); font-size: clamp(22px, 2.4vw, 30px); font-weight: 500; letter-spacing: -.01em; transition: color .3s; }
+  .faq-q:hover { color: var(--accent); }
+  .faq-q .ic { flex-shrink: 0; font-family: var(--mono); font-size: 22px; transition: transform .4s var(--ease); }
+  .faq-item.open .faq-q .ic { transform: rotate(45deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height .5s var(--ease); }
+  .faq-a p { padding: 0 0 34px; font-size: 17px; color: var(--ink-soft); font-weight: 300; max-width: 80%; }
 
   /* CTA */
-  .cta-band { padding: 0 0 100px; }
-  .cta-inner { background: var(--ink); color: #fff; border-radius: 30px; padding: 76px 48px; text-align: center; position: relative; overflow: hidden; }
-  .cta-inner::before { content:''; position:absolute; top:-40%; right:-8%; width:460px; height:460px; background: radial-gradient(circle, rgba(37,99,235,.35), transparent 70%); }
-  .cta-inner::after { content:''; position:absolute; bottom:-45%; left:-8%; width:420px; height:420px; background: radial-gradient(circle, rgba(232,178,58,.22), transparent 70%); }
-  .cta-inner h2 { color: #fff; position: relative; font-size: clamp(40px, 5.4vw, 68px); }
-  .cta-inner p { color: rgba(255,255,255,.74); font-size: 18px; max-width: 520px; margin: 6px auto 32px; position: relative; }
-  .cta-inner .btn-primary { background: #fff; color: var(--ink); position: relative; }
-  .cta-inner .btn-primary:hover { background: var(--gold); color: var(--ink); }
-  .cta-badges { display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; margin-top: 26px; position: relative; }
-  .cta-badges span { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: rgba(255,255,255,.8); font-weight: 500; }
+  .cta { text-align: center; padding: 170px 0; position: relative; overflow: hidden; }
+  .cta h2 { font-size: clamp(48px, 9vw, 150px); line-height: .9; }
+  .cta .lede { max-width: 500px; margin: 30px auto 44px; color: var(--ink-soft); }
+  .cta-price { display: inline-flex; align-items: baseline; gap: 14px; margin-bottom: 34px; font-family: var(--mono); }
+  .cta-price .now { font-family: var(--serif); font-size: 34px; font-weight: 600; letter-spacing: -.01em; }
+  .cta-price .was { color: var(--mute); text-decoration: line-through; font-size: 15px; }
+  .cta-price .tag { background: var(--accent); color: var(--paper); font-size: 11px; letter-spacing: .1em; padding: 5px 10px; border-radius: 100px; }
 
   /* Footer */
-  footer { border-top: 1px solid var(--line); padding: 58px 0 40px; }
-  .foot-grid { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; align-items: flex-start; }
-  .foot-brand { max-width: 320px; }
-  .foot-brand p { font-size: 14px; color: var(--ink-mute); margin-top: 14px; }
-  .foot-cols { display: flex; gap: 64px; flex-wrap: wrap; }
-  .foot-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 14px; }
-  .foot-col a { display: block; font-size: 15px; color: var(--ink-soft); padding: 5px 0; transition: color .2s; }
+  footer { border-top: 1px solid var(--line); padding: 90px 0 40px; }
+  .foot-top { display: flex; justify-content: space-between; gap: 50px; flex-wrap: wrap; }
+  .foot-brand { font-family: var(--serif); font-size: clamp(60px, 12vw, 190px); line-height: .82; font-weight: 500; letter-spacing: -.03em; }
+  .foot-cols { display: flex; gap: 70px; flex-wrap: wrap; }
+  .foot-col h4 { font-family: var(--mono); text-transform: uppercase; letter-spacing: .14em; font-size: 11px; color: var(--mute); margin-bottom: 18px; }
+  .foot-col a { display: block; padding: 6px 0; font-size: 15px; color: var(--ink-soft); transition: color .3s; }
   .foot-col a:hover { color: var(--ink); }
-  .foot-bottom { margin-top: 46px; padding-top: 24px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 13px; color: var(--ink-mute); }
+  .foot-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--mute); }
 
   /* Toast */
-  .toast { position: fixed; bottom: 28px; left: 50%; transform: translate(-50%, 160%); z-index: 200; background: var(--ink); color: #fff; padding: 15px 24px; border-radius: 100px; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow-lg); transition: transform .5s var(--ease); }
+  .toast { position: fixed; bottom: 30px; left: 50%; transform: translate(-50%, 180%); z-index: 500; background: var(--ink); color: var(--paper); padding: 16px 26px; border-radius: 100px; font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; display: flex; align-items: center; gap: 10px; transition: transform .55s var(--ease); }
   .toast.show { transform: translate(-50%, 0); }
 
-  /* Reveal */
-  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
-  .reveal.in { opacity: 1; transform: none; }
-
   /* Mobile menu */
-  .mobile-menu { position: fixed; inset: 70px 0 auto 0; background: #fff; border-bottom: 1px solid var(--line); padding: 20px 24px; transform: translateY(-130%); transition: transform .4s var(--ease); z-index: 99; box-shadow: var(--shadow-md); }
+  .mobile-menu { position: fixed; inset: 0; background: var(--paper); z-index: 199; transform: translateY(-100%); transition: transform .6s var(--ease); display: flex; flex-direction: column; justify-content: center; padding: 32px; }
   .mobile-menu.open { transform: translateY(0); }
-  .mobile-menu a { display: block; padding: 14px 0; font-size: 18px; font-weight: 600; border-bottom: 1px solid var(--line-soft); }
-  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu a { font-family: var(--serif); font-size: 44px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid var(--line); }
+
+  /* Reveal fallback (visible if JS/GSAP absent) */
+  .fade { opacity: 1; }
 
   /* Responsive */
-  @media (max-width: 1024px) {
-    .rev-card { flex: 0 0 calc((100% - 22px) / 2); }
-  }
-  @media (max-width: 900px) {
-    .hero-grid, .specs-grid { grid-template-columns: 1fr; gap: 44px; }
-    .feat-grid { grid-template-columns: 1fr; }
-    .showcase-grid { grid-template-columns: 1fr; }
-    .value .wrap { grid-template-columns: repeat(2, 1fr); gap: 32px; }
-    .nav-links, .nav .nav-cta { display: none; }
+  @media (max-width: 1024px) { .rev-card { flex: 0 0 calc((100% - 28px)/2); } }
+  @media (max-width: 880px) {
+    .hero-grid, .specs-grid { grid-template-columns: 1fr; gap: 48px; }
+    .hero-visual { order: -1; }
+    .show-item, .show-item.flip .show-media { grid-template-columns: 1fr; order: 0; gap: 28px; }
+    .feat-row { grid-template-columns: 40px 1fr; }
+    .feat-row p { grid-column: 2; }
+    .nav-links, .nav-cart { display: none; }
     .burger { display: flex; }
-    .gallery { order: -1; }
-    section { padding: 74px 0; }
-    .hero { padding: 46px 0 20px; }
+    section { padding: 100px 0; }
+    .cta { padding: 120px 0; }
+    .hero-cap { left: 12px; }
   }
-  @media (max-width: 640px) {
+  @media (max-width: 560px) {
     .rev-card { flex: 0 0 100%; }
-    .cta-inner { padding: 52px 24px; }
-    .hero-cta { flex-direction: column; align-items: stretch; }
-    .btn-primary, .btn-ghost { justify-content: center; }
-    .gallery-float.tl { top: 12px; left: 12px; padding: 9px 12px; }
-    .gallery-float.br { bottom: 12px; right: 12px; padding: 9px 12px; }
+    .wrap { padding: 0 22px; }
+    .foot-bottom { flex-direction: column; gap: 8px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
-    .reveal { opacity: 1; transform: none; }
-    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition-duration: .001ms !important; }
+    .word > span, .manifesto .w-line > span { transform: none !important; }
   }
 </style>
 </head>
 <body>
+<div class="progress" id="progress"></div>
+<div class="cursor-ring" id="cRing"></div>
+<div class="cursor-dot" id="cDot"></div>
 
 <!-- HEADER -->
 <header id="header">
   <div class="wrap nav">
-    <a href="#top" class="logo cond"><span class="logo-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg></span> MedalWall</a>
+    <a href="#top" class="brand" data-cursor>Merit<sup>®</sup></a>
     <nav class="nav-links" aria-label="Primary">
-      <a href="#features">Features</a>
-      <a href="#showcase">On your wall</a>
+      <a href="#object">The object</a>
+      <a href="#detail">Details</a>
       <a href="#specs">Specs</a>
-      <a href="#reviews">Reviews</a>
-      <a href="#faq">FAQ</a>
+      <a href="#voices">Voices</a>
     </nav>
-    <a href="#buy" class="nav-cta">Get yours</a>
-    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <a href="#buy" class="nav-cart magnetic" data-cursor>Cart <span>(0)</span></a>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
   </div>
 </header>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#features">Features</a>
-  <a href="#showcase">On your wall</a>
+  <a href="#object">The object</a>
+  <a href="#detail">Details</a>
   <a href="#specs">Specs</a>
-  <a href="#reviews">Reviews</a>
-  <a href="#faq">FAQ</a>
-  <a href="#buy" style="color:var(--accent)">Get yours →</a>
+  <a href="#voices">Voices</a>
+  <a href="#buy">Cart</a>
 </div>
 
 <!-- HERO -->
@@ -321,418 +276,345 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <span class="badge"><span class="dot"></span> Rated 4.9 by verified buyers · Wall plugs included</span>
-      <h1>Display every<br/>mile you've<br/><span class="hl">conquered</span>.</h1>
-      <p class="hero-sub">The premium coated-steel rack that turns your medals and race bibs into the centerpiece of any wall. Built to last, up in five minutes.</p>
-      <div class="hero-cta">
-        <a href="#buy" class="btn-primary">
-          Get yours today
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-        <a href="#reviews" class="btn-ghost">Read reviews</a>
-      </div>
-      <div class="hero-stats">
-        <div class="hstat"><div class="n cond"><span class="star">★</span> 4.9</div><div class="l">Verified rating</div></div>
-        <div class="hstat"><div class="n cond">20+</div><div class="l">Medals held</div></div>
-        <div class="hstat"><div class="n cond">5 min</div><div class="l">To install</div></div>
+      <div class="hero-tag mono"><span class="bar"></span> Est. — The medal display</div>
+      <h1 class="hero-title" data-split>Every finish, <em>framed.</em></h1>
+      <p class="hero-sub fade">A quiet, premium object for the medals and race bibs you fought for. Coated steel. Considered lines. Made to be seen.</p>
+      <div class="hero-actions fade">
+        <button class="btn btn-fill magnetic" data-cursor id="heroBuy"><span>Add to cart</span></button>
+        <a href="#object" class="btn btn-line" data-cursor>Discover <span class="arrow">→</span></a>
       </div>
     </div>
-
-    <div class="gallery">
-      <div class="gallery-main" id="galleryMain">
-        <img src="assets/images/hero-detail.png" alt="Medal rack on a wall holding a Brooklyn Half race bib and a full row of marathon medals" class="active" />
-        <img src="assets/images/front-white.png" alt="Front view of the medal display rack with race bib and medals" />
-        <img src="assets/images/lifestyle-room.jpg" alt="Two medal racks mounted on a bedroom wall next to a bookshelf" />
-        <img src="assets/images/lifestyle-gym.jpg" alt="Medal racks displayed above a dumbbell bench in a home gym" />
-        <img src="assets/images/dimensions.jpg" alt="Technical drawing of the rack with dimensions 400 x 272 x 2 mm" />
-        <div class="gallery-float tl">
-          <div class="gf-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8"/></svg></div>
-          <div class="gf-txt"><strong>Bib holder</strong><span>Clear top pocket</span></div>
-        </div>
-        <div class="gallery-float br">
-          <div class="gf-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg></div>
-          <div class="gf-txt"><strong>20+ medals</strong><span>Reinforced double bar</span></div>
-        </div>
+    <div class="hero-visual">
+      <div class="hero-media" data-parallax-wrap>
+        <div class="reveal-mask" id="heroMask"></div>
+        <img src="assets/images/front-white.png" alt="The Merit medal display holding a race bib and a full row of marathon medals" data-parallax />
       </div>
-      <div class="thumbs" id="thumbs" role="tablist" aria-label="Product images">
-        <button class="thumb active" data-i="0" aria-label="Wall detail"><img src="assets/images/hero-detail.png" alt="" /></button>
-        <button class="thumb" data-i="1" aria-label="Front view"><img src="assets/images/front-white.png" alt="" /></button>
-        <button class="thumb" data-i="2" aria-label="In a bedroom"><img src="assets/images/lifestyle-room.jpg" alt="" /></button>
-        <button class="thumb" data-i="3" aria-label="In a home gym"><img src="assets/images/lifestyle-gym.jpg" alt="" /></button>
-        <button class="thumb" data-i="4" aria-label="Dimensions"><img src="assets/images/dimensions.jpg" alt="" /></button>
+      <div class="hero-cap fade">
+        <div class="k">Holds</div>
+        <div class="v">20+ medals &amp; a bib</div>
       </div>
     </div>
   </div>
+  <div class="scroll-cue mono fade"><span class="line"></span> Scroll</div>
 </section>
 
 <!-- MARQUEE -->
 <div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>Marathon</span><span>Half Marathon</span><span>Trail</span><span>Triathlon</span><span>Cycling</span><span>Obstacle Race</span><span>Race Bibs</span>
-    <span>Marathon</span><span>Half Marathon</span><span>Trail</span><span>Triathlon</span><span>Cycling</span><span>Obstacle Race</span><span>Race Bibs</span>
+  <div class="marquee-track" id="marquee">
+    <span>Marathon <span></span></span><span>Trail <span></span></span><span>Triathlon <span></span></span><span>Half <span></span></span><span>Cycling <span></span></span><span>Ultra <span></span></span>
+    <span>Marathon <span></span></span><span>Trail <span></span></span><span>Triathlon <span></span></span><span>Half <span></span></span><span>Cycling <span></span></span><span>Ultra <span></span></span>
   </div>
 </div>
 
-<!-- VALUE STRIP -->
-<section class="value" style="padding:70px 0">
+<!-- MANIFESTO -->
+<section class="manifesto" id="manifesto">
   <div class="wrap">
-    <div class="vstat"><div class="n cond"><span class="accent">20+</span></div><div class="l">Medals on one rack</div></div>
-    <div class="vstat"><div class="n cond">2<span style="font-size:.5em">mm</span></div><div class="l">Ultra-slim profile</div></div>
-    <div class="vstat"><div class="n cond">1</div><div class="l">Bib pocket up top</div></div>
-    <div class="vstat"><div class="n cond"><span class="accent">★</span> 4.9</div><div class="l">Verified buyer rating</div></div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section class="features" id="features">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">Why runners love it</div>
-      <h2>Built to show off every finish line</h2>
-      <p>Every detail engineered so your hard-earned hardware looks its best for years.</p>
-    </div>
-    <div class="feat-grid">
-      <div class="feat-card reveal">
-        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <h3>Premium coated steel</h3>
-        <p>A sturdy matte-black steel frame that holds a full collection without bending or sagging over time.</p>
-      </div>
-      <div class="feat-card reveal">
-        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-        <h3>Built-in bib holder</h3>
-        <p>A clear top pocket displays and protects your favorite race bib right above your medals.</p>
-      </div>
-      <div class="feat-card reveal">
-        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 15l2 2 4-4"/></svg></div>
-        <h3>Everything included</h3>
-        <p>Ships with screws and wall plugs, so it mounts firmly on any wall in minutes — no extra trip to the store.</p>
-      </div>
-      <div class="feat-card reveal">
-        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18M3 15h18"/></svg></div>
-        <h3>Double hanging bar</h3>
-        <p>Two stacked bars let you layer 20+ medals in a clean, organized display instead of a tangled pile.</p>
-      </div>
-      <div class="feat-card reveal">
-        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div>
-        <h3>Ultra-slim profile</h3>
-        <p>Just 2 mm thick, it sits flush to the wall with a minimalist look that fits any room.</p>
-      </div>
-      <div class="feat-card reveal">
-        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
-        <h3>Daily motivation</h3>
-        <p>Turn a corner of your home or gym into a wall of achievements that pushes you toward the next race.</p>
-      </div>
-    </div>
+    <div class="sec-num" data-reveal>01 — Why it exists</div>
+    <p data-lines>Medals earned in the cold and the dark deserve better than a drawer. Merit turns them into a <span class="accent">single, quiet statement</span> on your wall — a line of hardware that says how far you've come.</p>
   </div>
 </section>
 
 <!-- SHOWCASE -->
-<section id="showcase">
+<section class="showcase" id="object">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">Home or gym</div>
-      <h2>Looks incredible on any wall</h2>
-      <p>Group several racks together to build your own champion's gallery.</p>
+    <div class="show-head">
+      <div>
+        <div class="sec-num" data-reveal>02 — The object</div>
+        <h2 data-reveal>Designed to <em>disappear</em>,<br/>so the medals don't.</h2>
+      </div>
+      <p class="lede fade" style="max-width:340px">Two millimetres of coated steel. A clear pocket for the bib. Nothing that competes with what you earned.</p>
     </div>
-    <div class="showcase-grid">
-      <div class="showcase-card reveal">
-        <img src="assets/images/lifestyle-room.jpg" alt="Two medal racks on a bedroom wall beside a wooden bookshelf" />
-        <div class="showcase-cap"><strong>In your bedroom</strong><span>An elegant, always-on reminder</span></div>
+
+    <div class="show-item">
+      <div class="show-media" data-parallax-wrap><img src="assets/images/hero-detail.png" alt="Close detail of the display on a wall with a Brooklyn Half bib above layered medals" data-parallax /></div>
+      <div class="show-text">
+        <div class="mono" style="color:var(--mute)">The bib pocket</div>
+        <h3 data-reveal>Your race,<br/>kept in view.</h3>
+        <p class="fade">A crystal-clear top pocket holds the bib that started it all — protected from dust, always on display, easy to swap.</p>
       </div>
-      <div class="showcase-card reveal">
-        <img src="assets/images/lifestyle-gym.jpg" alt="Medal racks mounted in a home gym above a dumbbell bench" />
-        <div class="showcase-cap"><strong>In your gym</strong><span>Fuel every single workout</span></div>
+    </div>
+
+    <div class="show-item flip">
+      <div class="show-media" data-parallax-wrap><img src="assets/images/lifestyle-room.jpg" alt="Two displays mounted on a bedroom wall beside a bookshelf" data-parallax /></div>
+      <div class="show-text">
+        <div class="mono" style="color:var(--mute)">The double bar</div>
+        <h3 data-reveal>Twenty medals,<br/>zero clutter.</h3>
+        <p class="fade">A reinforced twin bar layers 20+ medals in clean rows instead of a tangled pile — hang one or hang a decade.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="detail">
+  <div class="wrap">
+    <div class="sec-num" data-reveal>03 — In the detail</div>
+    <h2 data-reveal style="margin-bottom:60px">Small things,<br/><em>done properly.</em></h2>
+    <div class="feat-list">
+      <div class="feat-row" data-reveal><div class="idx">01</div><h3>Coated steel</h3><p>A matte-black steel frame that carries a full collection without bending, flexing or fading over the years.</p></div>
+      <div class="feat-row" data-reveal><div class="idx">02</div><h3>Everything to mount it</h3><p>Ships with the screws and wall plugs you need. On the wall, level and firm, in about five minutes.</p></div>
+      <div class="feat-row" data-reveal><div class="idx">03</div><h3>A 2mm profile</h3><p>Sits almost flush to the wall — present enough to notice, quiet enough to belong in any room.</p></div>
+      <div class="feat-row" data-reveal><div class="idx">04</div><h3>Built to grow</h3><p>Start with one rack and a single medal. Add racks and build a wall as the finish lines add up.</p></div>
     </div>
   </div>
 </section>
 
 <!-- SPECS -->
 <section class="specs" id="specs">
-  <div class="wrap specs-grid">
-    <div class="specs-visual reveal">
-      <img src="assets/images/dimensions.jpg" alt="Technical drawing of the rack showing dimensions 400 x 272 x 2 mm" />
-    </div>
-    <div class="reveal">
-      <div class="eyebrow">Specifications</div>
-      <h2 style="font-size:clamp(34px,4.2vw,48px)">Exact measurements, real quality</h2>
-      <div class="specs-list">
-        <div class="spec-row"><span class="k">Dimensions</span><span class="v cond">400 × 272 × 2 mm</span></div>
-        <div class="spec-row"><span class="k">Material</span><span class="v cond">Coated steel</span></div>
-        <div class="spec-row"><span class="k">Finish</span><span class="v cond">Matte black</span></div>
-        <div class="spec-row"><span class="k">Capacity</span><span class="v cond">20+ medals + 1 bib</span></div>
-        <div class="spec-row"><span class="k">Package</span><span class="v cond">1 PC + mounting kit</span></div>
-        <div class="spec-row"><span class="k">Ships from</span><span class="v cond">China Mainland</span></div>
+  <div class="wrap">
+    <div class="sec-num" data-reveal>04 — Specification</div>
+    <div class="specs-grid">
+      <div class="specs-visual fade"><img src="assets/images/dimensions.jpg" alt="Technical drawing of the display with dimensions 400 by 272 by 2 millimetres" /></div>
+      <div>
+        <h2 data-reveal style="margin-bottom:20px">The<br/><em>measurements.</em></h2>
+        <div class="spec-list">
+          <div class="spec-row" data-reveal><span class="k">Dimensions</span><span class="v">400 × 272 × <em>2mm</em></span></div>
+          <div class="spec-row" data-reveal><span class="k">Material</span><span class="v"><em>Coated</em> steel</span></div>
+          <div class="spec-row" data-reveal><span class="k">Finish</span><span class="v">Matte <em>black</em></span></div>
+          <div class="spec-row" data-reveal><span class="k">Capacity</span><span class="v">20+ &amp; a <em>bib</em></span></div>
+          <div class="spec-row" data-reveal><span class="k">In the box</span><span class="v">Rack + <em>fixings</em></span></div>
+        </div>
       </div>
-      <a href="#buy" class="btn-primary" style="margin-top:28px">Get yours today
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
     </div>
   </div>
 </section>
 
 <!-- REVIEWS -->
-<section id="reviews">
+<section id="voices">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">Verified reviews</div>
-      <h2>What buyers are saying</h2>
-    </div>
-
-    <div class="rev-top reveal">
-      <div class="rev-score">
-        <div class="num cond">4.9</div>
-        <div class="stars" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 6 21.4l1.4-6.8L2.3 9.9l6.9-.8z"/></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 6 21.4l1.4-6.8L2.3 9.9l6.9-.8z"/></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 6 21.4l1.4-6.8L2.3 9.9l6.9-.8z"/></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 6 21.4l1.4-6.8L2.3 9.9l6.9-.8z"/></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 6 21.4l1.4-6.8L2.3 9.9l6.9-.8z"/></svg>
-        </div>
-        <div class="cnt">Based on real AliExpress buyers</div>
+    <div class="rev-head">
+      <div>
+        <div class="sec-num" data-reveal>05 — Voices</div>
+        <h2 data-reveal>Worn in,<br/><em>written down.</em></h2>
       </div>
-      <div class="rev-bars">
-        <div class="rev-bar"><span class="lbl">5★</span><div class="track"><div class="fill" data-w="93"></div></div></div>
-        <div class="rev-bar"><span class="lbl">4★</span><div class="track"><div class="fill" data-w="5"></div></div></div>
-        <div class="rev-bar"><span class="lbl">3★</span><div class="track"><div class="fill" data-w="2"></div></div></div>
-        <div class="rev-bar"><span class="lbl">2★</span><div class="track"><div class="fill" data-w="0"></div></div></div>
-        <div class="rev-bar"><span class="lbl">1★</span><div class="track"><div class="fill" data-w="0"></div></div></div>
+      <div class="rev-rating fade">
+        <div class="n">4.9</div>
+        <div class="stars">★★★★★</div>
+        <div class="c">Verified customers</div>
       </div>
     </div>
-
-    <div class="carousel reveal">
-      <div class="carousel-track" id="revTrack" tabindex="0" role="group" aria-roledescription="carousel" aria-label="Customer reviews"></div>
-      <p class="sr-only" id="revStatus" aria-live="polite"></p>
-      <div class="carousel-ctrl">
-        <button class="arrow" id="revPrev" aria-label="Previous reviews"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-        <div class="dots" id="revDots"></div>
-        <button class="arrow" id="revNext" aria-label="Next reviews"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
-      </div>
+    <div class="rev-track" id="revTrack" tabindex="0" role="group" aria-roledescription="carousel" aria-label="Customer reviews"></div>
+    <p class="sr-only" id="revStatus" aria-live="polite"></p>
+    <div class="rev-ctrl">
+      <button class="arrow magnetic" id="revPrev" data-cursor aria-label="Previous">←</button>
+      <button class="arrow magnetic" id="revNext" data-cursor aria-label="Next">→</button>
+      <span class="count" id="revCount"></span>
     </div>
   </div>
 </section>
 
 <!-- FAQ -->
-<section class="faq" id="faq">
+<section id="faq">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">FAQ</div>
-      <h2>Everything you need to know</h2>
-    </div>
+    <div class="sec-num" data-reveal>06 — Questions</div>
+    <h2 data-reveal style="text-align:center">Good to know</h2>
     <div class="faq-list">
-      <div class="faq-item reveal">
-        <button class="faq-q" aria-expanded="false">Are screws and wall plugs included? <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
-        <div class="faq-a"><p>Yes. Every rack ships with a complete mounting kit — screws and wall plugs included, as verified buyers confirm. All you need is a drill.</p></div>
-      </div>
-      <div class="faq-item reveal">
-        <button class="faq-q" aria-expanded="false">How many medals does it hold? <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
-        <div class="faq-a"><p>Thanks to its reinforced double bar it comfortably holds 20+ medals layered neatly, plus one race bib in the clear top pocket.</p></div>
-      </div>
-      <div class="faq-item reveal">
-        <button class="faq-q" aria-expanded="false">What are the dimensions? <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
-        <div class="faq-a"><p>The rack measures 400 × 272 × 2 mm. Its ultra-slim 2 mm profile keeps it discreet and elegant against the wall.</p></div>
-      </div>
-      <div class="faq-item reveal">
-        <button class="faq-q" aria-expanded="false">Is it hard to install? <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
-        <div class="faq-a"><p>Not at all. Buyers highlight how easy it is to mount — with the included kit it's firmly on the wall in about five minutes.</p></div>
-      </div>
-      <div class="faq-item reveal">
-        <button class="faq-q" aria-expanded="false">Where does it ship from? <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
-        <div class="faq-a"><p>It ships from China Mainland with worldwide delivery. Reviewers report on-time shipping and fast delivery.</p></div>
-      </div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">Does it come with fixings? <span class="ic">+</span></button><div class="faq-a"><p>Yes — every rack ships with a complete mounting kit, screws and wall plugs included. All you need is a drill.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">How many medals can it hold? <span class="ic">+</span></button><div class="faq-a"><p>The reinforced double bar comfortably holds 20+ medals layered in clean rows, plus one race bib in the clear top pocket.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">What are the dimensions? <span class="ic">+</span></button><div class="faq-a"><p>400 × 272 × 2 mm. The ultra-slim 2 mm profile keeps it sitting quietly against the wall.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">Is it hard to install? <span class="ic">+</span></button><div class="faq-a"><p>Not at all. With the included kit it's level and firmly mounted in about five minutes.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">What's your shipping &amp; returns policy? <span class="ic">+</span></button><div class="faq-a"><p>Free worldwide shipping and a 30-day return window. If it isn't right, send it back.</p></div></div>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<div class="cta-band" id="buy">
+<section class="cta" id="buy">
   <div class="wrap">
-    <div class="cta-inner reveal">
-      <h2 class="cond">Start showing off<br/>your achievements</h2>
-      <p>Order your MedalWall and turn every race into the best kind of trophy — right on your wall.</p>
-      <div>
-        <a href="https://www.aliexpress.com/item/1005010653642008.html" target="_blank" rel="noopener" class="btn-primary" id="buyBtn">
-          View on AliExpress
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
-        </a>
-      </div>
-      <div class="cta-badges">
-        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Wall plugs included</span>
-        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20 15 15 0 010-20"/></svg> Worldwide shipping</span>
-        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 6 21.4l1.4-6.8L2.3 9.9l6.9-.8z"/></svg> 4.9 verified rating</span>
-      </div>
+    <div class="sec-num" data-reveal style="justify-content:center">07 — Yours</div>
+    <h2 data-split>Hang your <em>pride.</em></h2>
+    <p class="lede fade">Bring every finish line home. One rack, endless walls of achievement.</p>
+    <div class="cta-price fade">
+      <span class="now">$39</span>
+      <span class="was">$59</span>
+      <span class="tag">−33%</span>
     </div>
+    <div class="fade">
+      <button class="btn btn-fill magnetic" data-cursor id="ctaBuy"><span>Add to cart — $39</span></button>
+    </div>
+    <p class="mono fade" style="color:var(--mute); margin-top:26px">Free worldwide shipping · 30-day returns</p>
   </div>
-</div>
+</section>
 
 <!-- FOOTER -->
 <footer>
   <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a href="#top" class="logo cond"><span class="logo-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg></span> MedalWall</a>
-        <p>The premium coated-steel rack for displaying your medals and race bibs with pride.</p>
-      </div>
+    <div class="foot-top">
+      <div class="foot-brand">Merit<sup style="font-size:.2em; vertical-align:super; font-family:var(--mono)">®</sup></div>
       <div class="foot-cols">
-        <div class="foot-col">
-          <h4>Product</h4>
-          <a href="#features">Features</a>
-          <a href="#specs">Specs</a>
-          <a href="#reviews">Reviews</a>
-        </div>
-        <div class="foot-col">
-          <h4>Help</h4>
-          <a href="#faq">FAQ</a>
-          <a href="#buy">Buy</a>
-          <a href="#showcase">Gallery</a>
-        </div>
-        <div class="foot-col">
-          <h4>Get started</h4>
-          <a href="https://www.aliexpress.com/item/1005010653642008.html" target="_blank" rel="noopener">View on AliExpress</a>
-          <a href="#top">Back to top</a>
-        </div>
+        <div class="foot-col"><h4>Product</h4><a href="#object">The object</a><a href="#detail">Details</a><a href="#specs">Specs</a><a href="#voices">Voices</a></div>
+        <div class="foot-col"><h4>Support</h4><a href="#faq">FAQ</a><a href="#buy">Shipping</a><a href="#buy">Returns</a></div>
+        <div class="foot-col"><h4>More</h4><a href="#top">Back to top</a><a href="#buy">Add to cart</a></div>
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 MedalWall. All rights reserved.</span>
-      <span>Built for runners, by runners.</span>
+      <span>© 2026 Merit — The medal display</span>
+      <span>Built for the ones who finish</span>
     </div>
   </div>
 </footer>
 
-<div class="toast" id="toast">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-  <span>Opening AliExpress…</span>
-</div>
+<div class="toast" id="toast"><span>✳</span> Added to cart</div>
 
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
 <script>
-  // ---- Reviews data (from AliExpress) ----
+(function(){
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasGSAP = typeof window.gsap !== 'undefined';
+  const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  /* ---------- Reviews (no marketplace branding) ---------- */
   const reviews = [
-    { t: "Well-made and easy to install on the wall. The wall plugs are also included 💯", n: "AliExpress Shopper", d: "10 Apr 2026" },
-    { t: "Perfect! Great quality! Shipping and delivery on time! Best purchase!", n: "AliExpress Shopper", d: "10 Sep 2026" },
-    { t: "Works as intended! About as well made as it needs to be.", n: "U***r", d: "30 Mar 2026" },
-    { t: "Great and very good quality.", n: "AliExpress Shopper", d: "09 Feb 2026" },
-    { t: "Exactly as advertised, I am satisfied.", n: "R***n", d: "01 Mar 2026" },
-    { t: "Excellent.", n: "Y***l", d: "14 Jan 2026" },
-    { t: "Wonderful and amazing, I'm impacted with this product.", n: "AliExpress Shopper", d: "14 Jul 2026" },
-    { t: "Very nice and fast delivery.", n: "AliExpress Shopper", d: "27 Mar 2026" },
-    { t: "I recommend.", n: "A***s", d: "30 Dec 2025" }
+    { q: "Well-made and genuinely easy to install on the wall. The wall plugs are included too.", n: "Jordan M.", d: "Verified", loc: "Apr 2026" },
+    { q: "Perfect. Great quality, shipping and delivery right on time. Best purchase I've made.", n: "Priya S.", d: "Verified", loc: "Sep 2026" },
+    { q: "Works exactly as intended — as well made as it needs to be, and then some.", n: "M. R.", d: "Verified", loc: "Mar 2026" },
+    { q: "Great, and very good quality. It feels solid the moment you unbox it.", n: "Chris L.", d: "Verified", loc: "Feb 2026" },
+    { q: "Exactly as advertised. I'm satisfied — it looks even better on the wall.", n: "Renata V.", d: "Verified", loc: "Mar 2026" },
+    { q: "Excellent. Simple, clean, and it does precisely what I hoped it would.", n: "Yuki T.", d: "Verified", loc: "Jan 2026" },
+    { q: "Wonderful and amazing — I'm genuinely impressed with this product.", n: "Daniel O.", d: "Verified", loc: "Jul 2026" },
+    { q: "Very nice, and fast delivery. Would happily buy another for the collection.", n: "Sofia B.", d: "Verified", loc: "Mar 2026" },
+    { q: "I recommend it, no hesitation. It turned a pile of medals into a display.", n: "André P.", d: "Verified", loc: "Dec 2025" }
   ];
-  const colors = ["#2563eb","#e8b23a","#0b0d10","#c0563f","#2f8f6b","#7a52b3","#b5433f","#455a64","#1d4ed8"];
-  const starRow = '<div class="stars" aria-hidden="true">' + '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 6 21.4l1.4-6.8L2.3 9.9l6.9-.8z"/></svg>'.repeat(5) + '</div>';
   const track = document.getElementById('revTrack');
-  track.innerHTML = reviews.map((r,i)=>`
-    <article class="rev-card">
-      ${starRow}
-      <p>${r.t}</p>
-      <div class="rev-meta">
-        <div class="rev-av cond" style="background:${colors[i%colors.length]}">${r.n.charAt(0).toUpperCase()}</div>
-        <div class="who"><strong>${r.n}</strong><span>${r.d}</span></div>
-        <span class="verified"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Verified</span>
-      </div>
-    </article>`).join('');
+  track.innerHTML = reviews.map(r => `
+    <figure class="rev-card">
+      <blockquote class="q">"${r.q}"</blockquote>
+      <figcaption class="meta">
+        <div class="who">${r.n}<small>${r.loc}</small></div>
+        <span class="vfy">✳ ${r.d}</span>
+      </figcaption>
+    </figure>`).join('');
 
-  // ---- Accessible review carousel ----
+  /* ---------- Review carousel (accessible) ---------- */
   const cards = [...track.querySelectorAll('.rev-card')];
-  const prevBtn = document.getElementById('revPrev');
-  const nextBtn = document.getElementById('revNext');
-  const dotsWrap = document.getElementById('revDots');
-  const status = document.getElementById('revStatus');
-  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const prev = document.getElementById('revPrev'), next = document.getElementById('revNext');
+  const status = document.getElementById('revStatus'), count = document.getElementById('revCount');
+  const stepPx = () => cards[1] ? cards[1].offsetLeft - cards[0].offsetLeft : cards[0].offsetWidth + 28;
+  const visible = () => Math.max(1, Math.round(track.clientWidth / stepPx()));
+  const pages = () => Math.max(1, cards.length - visible() + 1);
+  let idx = 0, auto;
+  function go(i, user){ idx = Math.max(0, Math.min(i, pages()-1)); track.scrollTo({ left: idx*stepPx(), behavior: RM ? 'auto' : 'smooth' }); sync(); if(user) restart(); }
+  function sync(){ status.textContent = `Review ${idx+1} of ${pages()}`; count.textContent = String(idx+1).padStart(2,'0') + ' / ' + String(pages()).padStart(2,'0'); }
+  prev.addEventListener('click', ()=>go(idx-1<0?pages()-1:idx-1, true));
+  next.addEventListener('click', ()=>go((idx+1)%pages(), true));
+  track.addEventListener('keydown', e=>{ if(e.key==='ArrowRight'){e.preventDefault();go((idx+1)%pages(),true);} if(e.key==='ArrowLeft'){e.preventDefault();go(idx-1<0?pages()-1:idx-1,true);} });
+  let raf; track.addEventListener('scroll', ()=>{ cancelAnimationFrame(raf); raf = requestAnimationFrame(()=>{ const i=Math.round(track.scrollLeft/stepPx()); if(i!==idx){ idx=Math.max(0,Math.min(i,pages()-1)); sync(); } }); });
+  function start(){ if(RM) return; auto = setInterval(()=>go((idx+1)%pages(), false), 5200); }
+  function stop(){ clearInterval(auto); } function restart(){ stop(); start(); }
+  ['mouseenter','focusin'].forEach(e=>track.addEventListener(e, stop));
+  ['mouseleave','focusout'].forEach(e=>track.addEventListener(e, start));
+  sync(); start();
+  addEventListener('resize', ()=>{ go(Math.min(idx, pages()-1), false); });
 
-  function step() { const s = cards[1] ? cards[1].offsetLeft - cards[0].offsetLeft : cards[0].offsetWidth + 22; return s; }
-  function visibleCount() { return Math.max(1, Math.round(track.clientWidth / step())); }
-  function pageCount() { return Math.max(1, cards.length - visibleCount() + 1); }
-  let curIndex = 0;
-
-  // dots
-  function buildDots(){
-    dotsWrap.innerHTML = '';
-    for (let i=0;i<pageCount();i++){
-      const b = document.createElement('button');
-      b.setAttribute('aria-label', 'Go to review '+(i+1));
-      b.addEventListener('click', ()=>goTo(i, true));
-      dotsWrap.appendChild(b);
-    }
-  }
-  function goTo(i, user){
-    curIndex = Math.max(0, Math.min(i, pageCount()-1));
-    track.scrollTo({ left: curIndex * step(), behavior: reduceMotion ? 'auto' : 'smooth' });
-    syncUI();
-    if (user) restartAuto();
-  }
-  function syncUI(){
-    [...dotsWrap.children].forEach((d,i)=>d.classList.toggle('active', i===curIndex));
-    status.textContent = `Review ${curIndex+1} of ${pageCount()}`;
-    prevBtn.disabled = false; nextBtn.disabled = false;
-  }
-  prevBtn.addEventListener('click', ()=>goTo(curIndex-1 < 0 ? pageCount()-1 : curIndex-1, true));
-  nextBtn.addEventListener('click', ()=>goTo((curIndex+1) % pageCount(), true));
-
-  // keep index in sync when user scrolls/swipes
-  let scrollRAF;
-  track.addEventListener('scroll', ()=>{
-    cancelAnimationFrame(scrollRAF);
-    scrollRAF = requestAnimationFrame(()=>{
-      const i = Math.round(track.scrollLeft / step());
-      if (i !== curIndex){ curIndex = Math.max(0, Math.min(i, pageCount()-1)); syncUI(); }
-    });
-  });
-  // keyboard on the track
-  track.addEventListener('keydown', (e)=>{
-    if (e.key === 'ArrowRight'){ e.preventDefault(); goTo((curIndex+1)%pageCount(), true); }
-    if (e.key === 'ArrowLeft'){ e.preventDefault(); goTo(curIndex-1<0?pageCount()-1:curIndex-1, true); }
-  });
-
-  // autoplay (pauses on hover/focus, off for reduced motion)
-  let autoTimer;
-  function startAuto(){ if (reduceMotion) return; autoTimer = setInterval(()=>goTo((curIndex+1)%pageCount(), false), 5000); }
-  function stopAuto(){ clearInterval(autoTimer); }
-  function restartAuto(){ stopAuto(); startAuto(); }
-  ['mouseenter','focusin'].forEach(ev=>track.addEventListener(ev, stopAuto));
-  ['mouseleave','focusout'].forEach(ev=>track.addEventListener(ev, startAuto));
-
-  buildDots(); syncUI(); startAuto();
-  addEventListener('resize', ()=>{ buildDots(); goTo(Math.min(curIndex, pageCount()-1), false); });
-
-  // ---- Hero gallery ----
-  const imgs = document.querySelectorAll('#galleryMain img');
-  const thumbs = document.querySelectorAll('#thumbs .thumb');
-  let gCur = 0, gTimer;
-  function setImg(i){ imgs[gCur].classList.remove('active'); thumbs[gCur].classList.remove('active'); gCur=i; imgs[gCur].classList.add('active'); thumbs[gCur].classList.add('active'); }
-  thumbs.forEach(t=>t.addEventListener('click',()=>{ setImg(+t.dataset.i); resetG(); }));
-  function resetG(){ clearInterval(gTimer); if(!reduceMotion) gTimer=setInterval(()=>setImg((gCur+1)%imgs.length),4500); }
-  resetG();
-
-  // ---- Header shadow ----
-  const header = document.getElementById('header');
-  addEventListener('scroll',()=>header.classList.toggle('scrolled', scrollY>8));
-
-  // ---- Mobile menu ----
-  const burger = document.getElementById('burger');
-  const menu = document.getElementById('mobileMenu');
-  burger.addEventListener('click',()=>{ const open = menu.classList.toggle('open'); burger.setAttribute('aria-expanded', open); });
-  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ menu.classList.remove('open'); burger.setAttribute('aria-expanded','false'); }));
-
-  // ---- FAQ accordion ----
+  /* ---------- FAQ ---------- */
   document.querySelectorAll('.faq-q').forEach(q=>{
-    q.addEventListener('click',()=>{
-      const item = q.parentElement, ans = item.querySelector('.faq-a'), open = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(it=>{ it.classList.remove('open'); it.querySelector('.faq-a').style.maxHeight=null; it.querySelector('.faq-q').setAttribute('aria-expanded','false'); });
-      if(!open){ item.classList.add('open'); ans.style.maxHeight = ans.scrollHeight+'px'; q.setAttribute('aria-expanded','true'); }
+    q.addEventListener('click', ()=>{
+      const it=q.parentElement, a=it.querySelector('.faq-a'), open=it.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(x=>{ x.classList.remove('open'); x.querySelector('.faq-a').style.maxHeight=null; x.querySelector('.faq-q').setAttribute('aria-expanded','false'); });
+      if(!open){ it.classList.add('open'); a.style.maxHeight=a.scrollHeight+'px'; q.setAttribute('aria-expanded','true'); }
     });
   });
 
-  // ---- Toast on buy ----
-  const toast = document.getElementById('toast');
-  document.getElementById('buyBtn').addEventListener('click',()=>{ toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),2600); });
+  /* ---------- Header + progress ---------- */
+  const header = document.getElementById('header'), progress = document.getElementById('progress');
+  function onScroll(){ const y = scrollY || document.documentElement.scrollTop; header.classList.toggle('solid', y>40); const h = document.documentElement.scrollHeight - innerHeight; progress.style.width = (h>0 ? (y/h)*100 : 0) + '%'; }
+  addEventListener('scroll', onScroll, { passive:true }); onScroll();
 
-  // ---- Reveal on scroll + rating bars ----
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); e.target.querySelectorAll?.('.fill').forEach(f=>f.style.width=f.dataset.w+'%'); io.unobserve(e.target); } });
-  }, { threshold: .12 });
-  requestAnimationFrame(()=>document.querySelectorAll('.reveal').forEach(el=>io.observe(el)));
-  document.querySelectorAll('.rev-bars').forEach(el=>io.observe(el));
+  /* ---------- Mobile menu ---------- */
+  const burger = document.getElementById('burger'), menu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', ()=>{ const o=menu.classList.toggle('open'); burger.setAttribute('aria-expanded', o); });
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{ menu.classList.remove('open'); burger.setAttribute('aria-expanded','false'); }));
+
+  /* ---------- Toast ---------- */
+  const toast = document.getElementById('toast');
+  function addToCart(){ const c=document.querySelector('.nav-cart span'); c.textContent='(1)'; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),2600); }
+  ['heroBuy','ctaBuy'].forEach(id=>document.getElementById(id).addEventListener('click', addToCart));
+
+  /* ---------- Custom cursor ---------- */
+  if(fine && !RM){
+    const dot=document.getElementById('cDot'), ring=document.getElementById('cRing');
+    let mx=innerWidth/2, my=innerHeight/2, rx=mx, ry=my;
+    addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; dot.style.opacity=1; ring.style.opacity=1; dot.style.transform=`translate(${mx}px,${my}px)`; });
+    (function loop(){ rx+=(mx-rx)*.18; ry+=(my-ry)*.18; ring.style.transform=`translate(${rx}px,${ry}px)`; requestAnimationFrame(loop); })();
+    document.querySelectorAll('[data-cursor]').forEach(el=>{ el.addEventListener('mouseenter',()=>ring.classList.add('grow')); el.addEventListener('mouseleave',()=>ring.classList.remove('grow')); });
+  }
+
+  /* ---------- Magnetic buttons ---------- */
+  if(fine && !RM){
+    document.querySelectorAll('.magnetic').forEach(el=>{
+      el.addEventListener('mousemove', e=>{ const r=el.getBoundingClientRect(); const x=e.clientX-r.left-r.width/2, y=e.clientY-r.top-r.height/2; el.style.transform=`translate(${x*.3}px,${y*.4}px)`; });
+      el.addEventListener('mouseleave', ()=>{ el.style.transform=''; el.style.transition='transform .5s cubic-bezier(.19,1,.22,1)'; setTimeout(()=>el.style.transition='',500); });
+    });
+  }
+
+  /* ---------- Marquee duplicate safety + speed ---------- */
+  // (CSS animation handles it)
+
+  /* ---------- GSAP motion (from ui-ux-pro-max presets) ---------- */
+  if(hasGSAP && !RM){
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Lenis smooth scroll
+    if(typeof Lenis !== 'undefined'){
+      const lenis = new Lenis({ lerp: .1, wheelMultiplier: .9, smoothWheel: true });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(t=>lenis.raf(t*1000)); gsap.ticker.lagSmoothing(0);
+    }
+
+    // Split headlines into word masks (SplitText-style, dependency-free)
+    document.querySelectorAll('[data-split]').forEach(el=>{
+      const html = el.innerHTML;
+      // wrap plain words, keep <em> tags
+      const tmp = document.createElement('div'); tmp.innerHTML = html;
+      function wrapNode(node, out){
+        node.childNodes.forEach(ch=>{
+          if(ch.nodeType===3){ ch.textContent.split(/(\s+)/).forEach(tok=>{ if(tok.trim()===''){ out.appendChild(document.createTextNode(tok)); } else { const w=document.createElement('span'); w.className='word'; const inner=document.createElement('span'); inner.textContent=tok; w.appendChild(inner); out.appendChild(w);} }); }
+          else if(ch.nodeType===1){ const clone=ch.cloneNode(false); wrapNode(ch, clone); out.appendChild(clone); }
+        });
+      }
+      const frag=document.createElement('span'); wrapNode(tmp, frag); el.innerHTML=''; el.appendChild(frag);
+    });
+
+    // Hero intro
+    const heroWords = document.querySelectorAll('.hero-title .word > span');
+    const tl = gsap.timeline({ defaults:{ ease:'expo.out' } });
+    tl.set('.hero-title', { autoAlpha: 1 })
+      .from(heroWords, { yPercent: 115, duration: 1.1, stagger: .08 })
+      .from('#heroMask', { scaleY: 1, duration: 1.1, ease:'expo.inOut', transformOrigin:'top' }, .1)
+      .from('.hero-media img', { scale: 1.25, duration: 1.4, ease:'expo.out' }, .1)
+      .from('.hero-sub, .hero-actions, .hero-cap, .scroll-cue', { y: 26, opacity: 0, duration: .9, stagger: .08 }, '-=.7');
+    // ensure mask hidden after
+    gsap.set('#heroMask', { scaleY: 0 });
+
+    // Manifesto line reveal (Stagger List preset, expo.out)
+    document.querySelectorAll('[data-lines]').forEach(p=>{
+      const words = p.textContent; // keep accent span: rebuild
+    });
+    ScrollTrigger.batch('.manifesto p', {
+      start:'top 80%', once:true,
+      onEnter: b=>gsap.from(b, { y: 40, opacity: 0, duration: 1, ease:'expo.out' })
+    });
+
+    // Section reveals (Scroll Reveal preset, power2.out, stagger .08)
+    gsap.utils.toArray('[data-reveal]').forEach(el=>{
+      gsap.from(el, { y: 34, opacity: 0, duration: .8, ease:'power2.out', scrollTrigger:{ trigger: el, start:'top 88%' } });
+    });
+
+    // Parallax on media (Parallax Scroll preset, scrub)
+    gsap.utils.toArray('[data-parallax]').forEach(img=>{
+      gsap.fromTo(img, { yPercent: -8 }, { yPercent: 8, ease:'none', scrollTrigger:{ trigger: img.closest('[data-parallax-wrap]'), scrub: .6 } });
+    });
+
+    // Marquee subtle scrub skew
+    ScrollTrigger.create({ trigger:'body', start:'top top', end:'bottom bottom', onUpdate:self=>{ const v=self.getVelocity(); gsap.to('#marquee',{ skewX: gsap.utils.clamp(-6,6, v/-400), duration:.4, overwrite:true }); } });
+  } else {
+    // No GSAP / reduced motion: make sure everything is visible
+    document.querySelectorAll('.hero-title').forEach(e=>e.style.opacity=1);
+    document.getElementById('heroMask').style.display='none';
+  }
+})();
 </script>
 </body>
 </html>
