@@ -1,297 +1,292 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MedalWall · Soporte de Medallas y Dorsales</title>
-<meta name="description" content="Exhibe tus medallas y dorsales de carrera con un soporte de acero premium, elegante y fácil de instalar. Incluye tacos de pared." />
+<title>MedalWall · Medal & Race Bib Display Rack</title>
+<meta name="description" content="Display every medal and race bib you've earned on a premium coated-steel rack. Holds 20+ medals plus your bib. Wall plugs included. Rated 4.9 by verified buyers." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
     --bg: #ffffff;
-    --bg-soft: #f7f8fa;
-    --bg-softer: #fbfcfd;
-    --ink: #0f1115;
-    --ink-soft: #4a4f57;
-    --ink-mute: #868c96;
-    --line: #e8eaed;
-    --line-soft: #f0f1f3;
-    --accent: #111318;
-    --accent-hover: #2a2d34;
-    --gold: #d9a441;
+    --bg-soft: #f5f7fa;
+    --bg-softer: #fafbfc;
+    --ink: #0b0d10;
+    --ink-soft: #4c525c;
+    --ink-mute: #8b919b;
+    --line: #e7eaee;
+    --line-soft: #f0f2f5;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --accent-soft: #eef3ff;
+    --gold: #e8b23a;
     --star: #f5b301;
-    --radius: 18px;
+    --ok: #24a05a;
+    --radius: 20px;
     --radius-sm: 12px;
-    --shadow-sm: 0 1px 2px rgba(16,17,21,.04), 0 4px 16px rgba(16,17,21,.05);
-    --shadow-md: 0 8px 30px rgba(16,17,21,.08);
-    --shadow-lg: 0 24px 60px rgba(16,17,21,.12);
-    --maxw: 1180px;
+    --shadow-sm: 0 1px 2px rgba(11,13,16,.04), 0 6px 20px rgba(11,13,16,.05);
+    --shadow-md: 0 10px 34px rgba(11,13,16,.09);
+    --shadow-lg: 0 28px 70px rgba(11,13,16,.14);
+    --maxw: 1200px;
     --ease: cubic-bezier(.16,1,.3,1);
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+    font-family: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg); color: var(--ink); line-height: 1.6;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
   }
   img { max-width: 100%; display: block; }
   a { color: inherit; text-decoration: none; }
-  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
   .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+  .cond { font-family: 'Barlow Condensed', 'Barlow', sans-serif; }
+
+  /* Accessibility: visible focus */
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px;
+  }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
   /* ---------- Header ---------- */
   header {
     position: sticky; top: 0; z-index: 100;
     background: rgba(255,255,255,.82);
-    backdrop-filter: saturate(180%) blur(16px);
-    -webkit-backdrop-filter: saturate(180%) blur(16px);
-    border-bottom: 1px solid transparent;
-    transition: border-color .3s var(--ease), box-shadow .3s var(--ease);
+    backdrop-filter: saturate(180%) blur(16px); -webkit-backdrop-filter: saturate(180%) blur(16px);
+    border-bottom: 1px solid transparent; transition: border-color .3s var(--ease), box-shadow .3s var(--ease);
   }
   header.scrolled { border-color: var(--line); box-shadow: var(--shadow-sm); }
-  .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
-  .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; letter-spacing: -.02em; }
-  .logo-mark {
-    width: 30px; height: 30px; border-radius: 8px;
-    background: var(--ink); color: #fff; display: grid; place-items: center;
-    font-size: 15px; font-weight: 900;
-  }
-  .nav-links { display: flex; gap: 34px; align-items: center; }
-  .nav-links a { font-size: 15px; color: var(--ink-soft); font-weight: 500; transition: color .2s; }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 24px; letter-spacing: .01em; text-transform: uppercase; }
+  .logo-mark { width: 32px; height: 32px; border-radius: 9px; background: var(--ink); color: #fff; display: grid; place-items: center; }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a { font-size: 15px; color: var(--ink-soft); font-weight: 600; transition: color .2s; }
   .nav-links a:hover { color: var(--ink); }
   .nav-cta {
-    background: var(--accent); color: #fff; padding: 11px 20px; border-radius: 100px;
-    font-size: 14px; font-weight: 600; transition: transform .2s var(--ease), background .2s;
+    background: var(--accent); color: #fff; padding: 12px 22px; border-radius: 100px;
+    font-size: 14px; font-weight: 700; letter-spacing: .02em; transition: transform .2s var(--ease), background .2s;
   }
   .nav-cta:hover { background: var(--accent-hover); transform: translateY(-1px); }
   .burger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
-  .burger span { width: 22px; height: 2px; background: var(--ink); border-radius: 2px; transition: .3s; }
+  .burger span { width: 24px; height: 2px; background: var(--ink); border-radius: 2px; transition: .3s; }
 
   /* ---------- Hero ---------- */
-  .hero { padding: 72px 0 40px; position: relative; }
-  .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .hero { padding: 76px 0 40px; }
+  .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 60px; align-items: center; }
   .badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--bg-soft); border: 1px solid var(--line);
-    padding: 7px 14px; border-radius: 100px; font-size: 13px; font-weight: 600; color: var(--ink-soft);
-    margin-bottom: 22px;
+    display: inline-flex; align-items: center; gap: 9px; background: var(--bg-soft); border: 1px solid var(--line);
+    padding: 8px 15px; border-radius: 100px; font-size: 13px; font-weight: 600; color: var(--ink-soft); margin-bottom: 24px;
   }
-  .badge .dot { width: 7px; height: 7px; border-radius: 50%; background: #24c26a; box-shadow: 0 0 0 3px rgba(36,194,106,.18); }
+  .badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 3px rgba(36,160,90,.18); }
   h1 {
-    font-size: clamp(38px, 5.2vw, 60px); line-height: 1.03; letter-spacing: -.035em;
-    font-weight: 900; margin-bottom: 22px;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 800; text-transform: uppercase;
+    font-size: clamp(52px, 7.4vw, 92px); line-height: .92; letter-spacing: -.01em; margin-bottom: 22px;
   }
-  h1 .hl { position: relative; white-space: nowrap; }
-  h1 .hl::after {
-    content: ''; position: absolute; left: 0; right: 0; bottom: .08em; height: .28em;
-    background: linear-gradient(90deg, var(--gold), #f2cd7f); opacity: .35; z-index: -1; border-radius: 3px;
-  }
-  .hero-sub { font-size: 18px; color: var(--ink-soft); max-width: 520px; margin-bottom: 30px; }
-  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-bottom: 26px; }
+  h1 .hl { color: var(--accent); position: relative; }
+  .hero-sub { font-size: 19px; color: var(--ink-soft); max-width: 500px; margin-bottom: 32px; }
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-bottom: 30px; }
   .btn-primary {
-    background: var(--accent); color: #fff; padding: 15px 30px; border-radius: 100px;
-    font-size: 16px; font-weight: 700; display: inline-flex; align-items: center; gap: 10px;
-    transition: transform .2s var(--ease), box-shadow .2s; box-shadow: var(--shadow-md);
+    background: var(--accent); color: #fff; padding: 16px 32px; border-radius: 100px; font-size: 16px; font-weight: 700;
+    letter-spacing: .02em; display: inline-flex; align-items: center; gap: 10px;
+    transition: transform .2s var(--ease), box-shadow .2s, background .2s; box-shadow: var(--shadow-md);
   }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); background: var(--accent-hover); }
   .btn-ghost {
-    padding: 15px 24px; border-radius: 100px; font-size: 16px; font-weight: 600; color: var(--ink);
-    border: 1px solid var(--line); transition: border-color .2s, background .2s;
+    padding: 16px 26px; border-radius: 100px; font-size: 16px; font-weight: 700; color: var(--ink);
+    border: 1.5px solid var(--line); transition: border-color .2s, background .2s;
   }
   .btn-ghost:hover { border-color: var(--ink-mute); background: var(--bg-soft); }
-  .hero-trust { display: flex; gap: 26px; flex-wrap: wrap; }
-  .hero-trust .ht { display: flex; align-items: center; gap: 9px; font-size: 14px; color: var(--ink-soft); font-weight: 500; }
-  .hero-trust svg { color: var(--ink); flex-shrink: 0; }
+  .hero-stats { display: flex; gap: 34px; flex-wrap: wrap; }
+  .hstat .n { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 34px; line-height: 1; letter-spacing: .01em; }
+  .hstat .l { font-size: 13px; color: var(--ink-mute); font-weight: 600; margin-top: 4px; }
+  .hstat .n .star { color: var(--star); }
 
   /* ---------- Gallery ---------- */
-  .gallery { position: relative; }
   .gallery-main {
     position: relative; background: var(--bg-soft); border: 1px solid var(--line);
-    border-radius: var(--radius); overflow: hidden; aspect-ratio: 4/5;
-    box-shadow: var(--shadow-md);
+    border-radius: var(--radius); overflow: hidden; aspect-ratio: 4/5; box-shadow: var(--shadow-md);
   }
-  .gallery-main img {
-    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-    opacity: 0; transition: opacity .5s var(--ease);
-  }
+  .gallery-main img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .5s var(--ease); }
   .gallery-main img.active { opacity: 1; }
-  .gallery-float {
-    position: absolute; z-index: 3; background: #fff; border: 1px solid var(--line);
-    border-radius: 14px; padding: 12px 15px; box-shadow: var(--shadow-lg); display: flex; gap: 11px; align-items: center;
-  }
+  .gallery-float { position: absolute; z-index: 3; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; box-shadow: var(--shadow-lg); display: flex; gap: 12px; align-items: center; }
   .gallery-float.tl { top: 18px; left: 18px; }
   .gallery-float.br { bottom: 18px; right: 18px; }
-  .gf-icon { width: 34px; height: 34px; border-radius: 9px; background: var(--bg-soft); display: grid; place-items: center; }
-  .gf-txt strong { display: block; font-size: 14px; font-weight: 700; letter-spacing: -.01em; }
+  .gf-icon { width: 36px; height: 36px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; }
+  .gf-txt strong { display: block; font-size: 15px; font-weight: 700; font-family: 'Barlow Condensed', sans-serif; letter-spacing: .01em; }
   .gf-txt span { font-size: 12px; color: var(--ink-mute); }
   .thumbs { display: flex; gap: 12px; margin-top: 16px; }
-  .thumb {
-    flex: 1; aspect-ratio: 1; border-radius: var(--radius-sm); overflow: hidden;
-    border: 2px solid var(--line); background: var(--bg-soft); transition: border-color .25s, transform .25s var(--ease); position: relative;
-  }
+  .thumb { flex: 1; aspect-ratio: 1; border-radius: var(--radius-sm); overflow: hidden; border: 2px solid var(--line); background: var(--bg-soft); transition: border-color .25s, transform .25s var(--ease); }
   .thumb img { width: 100%; height: 100%; object-fit: cover; }
-  .thumb.active { border-color: var(--ink); }
+  .thumb.active { border-color: var(--accent); }
   .thumb:hover { transform: translateY(-3px); }
 
   /* ---------- Marquee ---------- */
-  .marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg-softer); overflow: hidden; margin-top: 46px; }
-  .marquee-track { display: flex; gap: 60px; padding: 20px 0; white-space: nowrap; animation: scroll 26s linear infinite; width: max-content; }
-  .marquee-track span { font-size: 15px; font-weight: 600; color: var(--ink-mute); display: inline-flex; align-items: center; gap: 12px; }
-  .marquee-track span::before { content: '★'; color: var(--gold); }
+  .marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg-softer); overflow: hidden; margin-top: 50px; }
+  .marquee-track { display: flex; gap: 56px; padding: 18px 0; white-space: nowrap; animation: scroll 28s linear infinite; width: max-content; }
+  .marquee-track span { font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; font-size: 18px; font-weight: 700; letter-spacing: .04em; color: var(--ink-mute); display: inline-flex; align-items: center; gap: 14px; }
+  .marquee-track span::before { content: '●'; color: var(--accent); font-size: 8px; }
   @keyframes scroll { to { transform: translateX(-50%); } }
 
   /* ---------- Sections ---------- */
-  section { padding: 92px 0; }
-  .sec-head { max-width: 640px; margin: 0 auto 56px; text-align: center; }
-  .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
-  h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.08; letter-spacing: -.03em; font-weight: 900; margin-bottom: 18px; }
-  .sec-head p { font-size: 17px; color: var(--ink-soft); }
+  section { padding: 100px 0; }
+  .sec-head { max-width: 680px; margin: 0 auto 60px; text-align: center; }
+  .eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+  h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; text-transform: uppercase; font-size: clamp(38px, 5vw, 60px); line-height: .96; letter-spacing: -.005em; margin-bottom: 18px; }
+  .sec-head p { font-size: 18px; color: var(--ink-soft); }
+
+  /* Problem / value strip */
+  .value { background: var(--ink); color: #fff; }
+  .value .wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+  .vstat { text-align: center; }
+  .vstat .n { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: clamp(42px, 5vw, 60px); line-height: 1; }
+  .vstat .n .accent { color: var(--gold); }
+  .vstat .l { font-size: 14px; color: rgba(255,255,255,.62); font-weight: 500; margin-top: 8px; }
 
   /* Features */
   .features { background: var(--bg-softer); }
-  .feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-  .feat-card {
-    background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 30px;
-    transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s;
-  }
-  .feat-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: transparent; }
-  .feat-icon { width: 50px; height: 50px; border-radius: 13px; background: var(--ink); color: #fff; display: grid; place-items: center; margin-bottom: 20px; }
-  .feat-card h3 { font-size: 19px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 10px; }
+  .feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .feat-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 32px; transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s; }
+  .feat-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: transparent; }
+  .feat-icon { width: 54px; height: 54px; border-radius: 14px; background: var(--accent); color: #fff; display: grid; place-items: center; margin-bottom: 22px; }
+  .feat-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: .01em; margin-bottom: 10px; }
   .feat-card p { font-size: 15px; color: var(--ink-soft); }
 
-  /* Showcase / lifestyle */
-  .showcase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
+  /* Showcase */
+  .showcase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   .showcase-card { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); position: relative; background: var(--bg-soft); }
   .showcase-card img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4/3; transition: transform .6s var(--ease); }
   .showcase-card:hover img { transform: scale(1.04); }
-  .showcase-cap { position: absolute; left: 20px; bottom: 20px; background: rgba(255,255,255,.94); backdrop-filter: blur(6px); padding: 12px 18px; border-radius: 12px; box-shadow: var(--shadow-sm); }
-  .showcase-cap strong { display: block; font-size: 15px; font-weight: 700; }
+  .showcase-cap { position: absolute; left: 20px; bottom: 20px; background: rgba(255,255,255,.95); backdrop-filter: blur(6px); padding: 13px 19px; border-radius: 12px; box-shadow: var(--shadow-sm); }
+  .showcase-cap strong { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; text-transform: uppercase; letter-spacing: .01em; }
   .showcase-cap span { font-size: 13px; color: var(--ink-mute); }
 
   /* Specs */
   .specs { background: var(--bg-softer); }
-  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
-  .specs-visual { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 40px; box-shadow: var(--shadow-sm); }
-  .specs-list { display: flex; flex-direction: column; }
-  .spec-row { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .specs-visual { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 44px; box-shadow: var(--shadow-sm); }
+  .spec-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
   .spec-row:last-child { border-bottom: none; }
   .spec-row .k { font-size: 15px; color: var(--ink-soft); font-weight: 500; }
-  .spec-row .v { font-size: 15px; font-weight: 700; letter-spacing: -.01em; }
+  .spec-row .v { font-family: 'Barlow Condensed', sans-serif; font-size: 19px; font-weight: 700; letter-spacing: .01em; text-align: right; }
 
-  /* Reviews */
-  .rev-top { display: flex; align-items: center; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 48px; }
+  /* Reviews / carousel */
+  .rev-top { display: flex; align-items: center; justify-content: center; gap: 34px; flex-wrap: wrap; margin-bottom: 40px; }
   .rev-score { text-align: center; }
-  .rev-score .num { font-size: 56px; font-weight: 900; letter-spacing: -.04em; line-height: 1; }
-  .stars { display: inline-flex; gap: 3px; margin: 8px 0 4px; }
+  .rev-score .num { font-family: 'Barlow Condensed', sans-serif; font-size: 66px; font-weight: 800; line-height: 1; }
+  .stars { display: inline-flex; gap: 3px; }
   .stars svg { color: var(--star); }
-  .rev-score .cnt { font-size: 14px; color: var(--ink-mute); }
-  .rev-bars { display: flex; flex-direction: column; gap: 7px; min-width: 240px; }
+  .rev-score .cnt { font-size: 14px; color: var(--ink-mute); margin-top: 6px; }
+  .rev-bars { display: flex; flex-direction: column; gap: 8px; min-width: 250px; }
   .rev-bar { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink-soft); }
-  .rev-bar .lbl { width: 34px; text-align: right; }
-  .rev-bar .track { flex: 1; height: 7px; background: var(--line); border-radius: 100px; overflow: hidden; }
+  .rev-bar .lbl { width: 30px; text-align: right; font-weight: 600; }
+  .rev-bar .track { flex: 1; height: 8px; background: var(--line); border-radius: 100px; overflow: hidden; }
   .rev-bar .fill { height: 100%; background: var(--star); border-radius: 100px; width: 0; transition: width 1s var(--ease); }
-  .rev-grid { columns: 3; column-gap: 22px; }
+
+  .carousel { position: relative; }
+  .carousel-track {
+    display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+    padding: 6px 2px 12px; -ms-overflow-style: none; scrollbar-width: none;
+  }
+  .carousel-track::-webkit-scrollbar { display: none; }
   .rev-card {
-    break-inside: avoid; background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 24px; margin-bottom: 22px; transition: box-shadow .3s var(--ease), transform .3s var(--ease);
+    scroll-snap-align: start; flex: 0 0 calc((100% - 44px) / 3); background: #fff; border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 28px; transition: box-shadow .3s var(--ease), transform .3s var(--ease); display: flex; flex-direction: column;
   }
   .rev-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
-  .rev-card .stars { margin: 0 0 12px; }
-  .rev-card p { font-size: 15px; color: var(--ink); margin-bottom: 16px; }
-  .rev-meta { display: flex; align-items: center; gap: 11px; }
-  .rev-av { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 15px; color: #fff; flex-shrink: 0; }
-  .rev-meta .who strong { display: block; font-size: 14px; font-weight: 600; }
+  .rev-card .stars { margin-bottom: 14px; }
+  .rev-card p { font-size: 16px; color: var(--ink); margin-bottom: 20px; flex: 1; }
+  .rev-meta { display: flex; align-items: center; gap: 12px; }
+  .rev-av { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 16px; color: #fff; flex-shrink: 0; font-family: 'Barlow Condensed', sans-serif; }
+  .rev-meta .who strong { display: block; font-size: 14px; font-weight: 700; }
   .rev-meta .who span { font-size: 12px; color: var(--ink-mute); }
-  .verified { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #24a05a; font-weight: 600; margin-left: auto; }
+  .verified { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--ok); font-weight: 700; margin-left: auto; }
+  .carousel-ctrl { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 30px; }
+  .carousel-ctrl button.arrow {
+    width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center;
+    color: var(--ink); transition: border-color .2s, background .2s, transform .2s;
+  }
+  .carousel-ctrl button.arrow:hover { border-color: var(--accent); background: var(--accent); color: #fff; }
+  .dots { display: flex; gap: 8px; }
+  .dots button { width: 9px; height: 9px; border-radius: 50%; background: var(--line); transition: background .2s, width .2s; }
+  .dots button.active { background: var(--accent); width: 26px; border-radius: 100px; }
 
   /* FAQ */
   .faq { background: var(--bg-softer); }
-  .faq-list { max-width: 760px; margin: 0 auto; }
+  .faq-list { max-width: 780px; margin: 0 auto; }
   .faq-item { border-bottom: 1px solid var(--line); }
-  .faq-q { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 24px 0; text-align: left; font-size: 18px; font-weight: 600; letter-spacing: -.01em; }
-  .faq-q .ic { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; transition: .3s var(--ease); }
-  .faq-item.open .faq-q .ic { transform: rotate(45deg); background: var(--ink); color: #fff; border-color: var(--ink); }
+  .faq-q { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 26px 0; text-align: left; font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; text-transform: uppercase; letter-spacing: .01em; }
+  .faq-q .ic { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center; transition: .3s var(--ease); }
+  .faq-item.open .faq-q .ic { transform: rotate(45deg); background: var(--accent); color: #fff; border-color: var(--accent); }
   .faq-a { max-height: 0; overflow: hidden; transition: max-height .4s var(--ease); }
-  .faq-a p { padding: 0 0 24px; font-size: 16px; color: var(--ink-soft); max-width: 90%; }
+  .faq-a p { padding: 0 0 26px; font-size: 16px; color: var(--ink-soft); max-width: 92%; }
 
   /* CTA */
-  .cta-band { padding: 0 0 92px; }
-  .cta-inner {
-    background: var(--ink); color: #fff; border-radius: 28px; padding: 68px 48px; text-align: center; position: relative; overflow: hidden;
-  }
-  .cta-inner::before { content:''; position:absolute; top:-40%; right:-10%; width:420px; height:420px; background: radial-gradient(circle, rgba(217,164,65,.22), transparent 70%); }
-  .cta-inner h2 { color: #fff; position: relative; }
-  .cta-inner p { color: rgba(255,255,255,.72); font-size: 18px; max-width: 500px; margin: 0 auto 30px; position: relative; }
+  .cta-band { padding: 0 0 100px; }
+  .cta-inner { background: var(--ink); color: #fff; border-radius: 30px; padding: 76px 48px; text-align: center; position: relative; overflow: hidden; }
+  .cta-inner::before { content:''; position:absolute; top:-40%; right:-8%; width:460px; height:460px; background: radial-gradient(circle, rgba(37,99,235,.35), transparent 70%); }
+  .cta-inner::after { content:''; position:absolute; bottom:-45%; left:-8%; width:420px; height:420px; background: radial-gradient(circle, rgba(232,178,58,.22), transparent 70%); }
+  .cta-inner h2 { color: #fff; position: relative; font-size: clamp(40px, 5.4vw, 68px); }
+  .cta-inner p { color: rgba(255,255,255,.74); font-size: 18px; max-width: 520px; margin: 6px auto 32px; position: relative; }
   .cta-inner .btn-primary { background: #fff; color: var(--ink); position: relative; }
   .cta-inner .btn-primary:hover { background: var(--gold); color: var(--ink); }
-  .cta-price { display: inline-flex; align-items: baseline; gap: 10px; margin-bottom: 26px; position: relative; }
-  .cta-price .now { font-size: 40px; font-weight: 900; letter-spacing: -.03em; }
-  .cta-price .was { font-size: 20px; color: rgba(255,255,255,.5); text-decoration: line-through; }
-  .cta-price .off { background: var(--gold); color: var(--ink); font-size: 13px; font-weight: 800; padding: 4px 10px; border-radius: 100px; }
+  .cta-badges { display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; margin-top: 26px; position: relative; }
+  .cta-badges span { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: rgba(255,255,255,.8); font-weight: 500; }
 
   /* Footer */
-  footer { border-top: 1px solid var(--line); padding: 54px 0 40px; }
+  footer { border-top: 1px solid var(--line); padding: 58px 0 40px; }
   .foot-grid { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; align-items: flex-start; }
-  .foot-brand { max-width: 300px; }
+  .foot-brand { max-width: 320px; }
   .foot-brand p { font-size: 14px; color: var(--ink-mute); margin-top: 14px; }
-  .foot-cols { display: flex; gap: 60px; flex-wrap: wrap; }
-  .foot-col h4 { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 14px; }
+  .foot-cols { display: flex; gap: 64px; flex-wrap: wrap; }
+  .foot-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 14px; }
   .foot-col a { display: block; font-size: 15px; color: var(--ink-soft); padding: 5px 0; transition: color .2s; }
   .foot-col a:hover { color: var(--ink); }
-  .foot-bottom { margin-top: 44px; padding-top: 24px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 13px; color: var(--ink-mute); }
+  .foot-bottom { margin-top: 46px; padding-top: 24px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 13px; color: var(--ink-mute); }
 
   /* Toast */
-  .toast {
-    position: fixed; bottom: 28px; left: 50%; transform: translate(-50%, 120%); z-index: 200;
-    background: var(--ink); color: #fff; padding: 14px 22px; border-radius: 100px; font-size: 15px; font-weight: 600;
-    display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow-lg); transition: transform .5s var(--ease);
-  }
+  .toast { position: fixed; bottom: 28px; left: 50%; transform: translate(-50%, 160%); z-index: 200; background: var(--ink); color: #fff; padding: 15px 24px; border-radius: 100px; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow-lg); transition: transform .5s var(--ease); }
   .toast.show { transform: translate(-50%, 0); }
 
   /* Reveal */
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
   .reveal.in { opacity: 1; transform: none; }
 
   /* Mobile menu */
-  .mobile-menu {
-    position: fixed; inset: 68px 0 auto 0; background: #fff; border-bottom: 1px solid var(--line);
-    padding: 20px 24px; transform: translateY(-120%); transition: transform .4s var(--ease); z-index: 99; box-shadow: var(--shadow-md);
-  }
+  .mobile-menu { position: fixed; inset: 70px 0 auto 0; background: #fff; border-bottom: 1px solid var(--line); padding: 20px 24px; transform: translateY(-130%); transition: transform .4s var(--ease); z-index: 99; box-shadow: var(--shadow-md); }
   .mobile-menu.open { transform: translateY(0); }
-  .mobile-menu a { display: block; padding: 13px 0; font-size: 17px; font-weight: 600; border-bottom: 1px solid var(--line-soft); }
+  .mobile-menu a { display: block; padding: 14px 0; font-size: 18px; font-weight: 600; border-bottom: 1px solid var(--line-soft); }
   .mobile-menu a:last-child { border-bottom: none; }
 
-  /* ---------- Responsive ---------- */
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .rev-card { flex: 0 0 calc((100% - 22px) / 2); }
+  }
   @media (max-width: 900px) {
-    .hero-grid, .specs-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero-grid, .specs-grid { grid-template-columns: 1fr; gap: 44px; }
     .feat-grid { grid-template-columns: 1fr; }
     .showcase-grid { grid-template-columns: 1fr; }
-    .rev-grid { columns: 2; }
-    .nav-links { display: none; }
-    .nav .nav-cta { display: none; }
+    .value .wrap { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .nav-links, .nav .nav-cta { display: none; }
     .burger { display: flex; }
     .gallery { order: -1; }
-    section { padding: 68px 0; }
-    .hero { padding: 44px 0 20px; }
+    section { padding: 74px 0; }
+    .hero { padding: 46px 0 20px; }
   }
-  @media (max-width: 560px) {
-    .rev-grid { columns: 1; }
-    .cta-inner { padding: 48px 24px; }
-    .gallery-float.tl { top: 12px; left: 12px; padding: 9px 12px; }
-    .gallery-float.br { bottom: 12px; right: 12px; padding: 9px 12px; }
+  @media (max-width: 640px) {
+    .rev-card { flex: 0 0 100%; }
+    .cta-inner { padding: 52px 24px; }
     .hero-cta { flex-direction: column; align-items: stretch; }
     .btn-primary, .btn-ghost { justify-content: center; }
+    .gallery-float.tl { top: 12px; left: 12px; padding: 9px 12px; }
+    .gallery-float.br { bottom: 12px; right: 12px; padding: 9px 12px; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
     .reveal { opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
   }
 </style>
 </head>
@@ -300,25 +295,25 @@
 <!-- HEADER -->
 <header id="header">
   <div class="wrap nav">
-    <a href="#top" class="logo"><span class="logo-mark">M</span> MedalWall</a>
-    <nav class="nav-links">
-      <a href="#features">Características</a>
-      <a href="#showcase">En tu pared</a>
-      <a href="#specs">Especificaciones</a>
-      <a href="#reviews">Opiniones</a>
+    <a href="#top" class="logo cond"><span class="logo-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg></span> MedalWall</a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#features">Features</a>
+      <a href="#showcase">On your wall</a>
+      <a href="#specs">Specs</a>
+      <a href="#reviews">Reviews</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a href="#buy" class="nav-cta">Comprar ahora</a>
-    <button class="burger" id="burger" aria-label="Menú"><span></span><span></span><span></span></button>
+    <a href="#buy" class="nav-cta">Get yours</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#features">Características</a>
-  <a href="#showcase">En tu pared</a>
-  <a href="#specs">Especificaciones</a>
-  <a href="#reviews">Opiniones</a>
+  <a href="#features">Features</a>
+  <a href="#showcase">On your wall</a>
+  <a href="#specs">Specs</a>
+  <a href="#reviews">Reviews</a>
   <a href="#faq">FAQ</a>
-  <a href="#buy" style="color:var(--gold)">Comprar ahora →</a>
+  <a href="#buy" style="color:var(--accent)">Get yours →</a>
 </div>
 
 <!-- HERO -->
@@ -326,100 +321,106 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <span class="badge"><span class="dot"></span> Envío disponible · Tacos de pared incluidos</span>
-      <h1>Cada meta cruzada, <span class="hl">a la vista</span>.</h1>
-      <p class="hero-sub">El soporte de acero que convierte tus medallas y dorsales en el mejor recuerdo de tu pared. Elegante, resistente y listo en minutos.</p>
+      <span class="badge"><span class="dot"></span> Rated 4.9 by verified buyers · Wall plugs included</span>
+      <h1>Display every<br/>mile you've<br/><span class="hl">conquered</span>.</h1>
+      <p class="hero-sub">The premium coated-steel rack that turns your medals and race bibs into the centerpiece of any wall. Built to last, up in five minutes.</p>
       <div class="hero-cta">
         <a href="#buy" class="btn-primary">
-          Consíguelo hoy
+          Get yours today
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <a href="#reviews" class="btn-ghost">Ver opiniones ★ 4.9</a>
+        <a href="#reviews" class="btn-ghost">Read reviews</a>
       </div>
-      <div class="hero-trust">
-        <div class="ht"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Acero de alta calidad</div>
-        <div class="ht"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Instalación en 5 min</div>
-        <div class="ht"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Dorsal + medallas</div>
+      <div class="hero-stats">
+        <div class="hstat"><div class="n cond"><span class="star">★</span> 4.9</div><div class="l">Verified rating</div></div>
+        <div class="hstat"><div class="n cond">20+</div><div class="l">Medals held</div></div>
+        <div class="hstat"><div class="n cond">5 min</div><div class="l">To install</div></div>
       </div>
     </div>
 
     <div class="gallery">
       <div class="gallery-main" id="galleryMain">
-        <img src="assets/images/hero-detail.png" alt="Soporte de medallas con dorsal Brooklyn Half y medallas" class="active" />
-        <img src="assets/images/front-white.png" alt="Vista frontal del soporte de medallas" />
-        <img src="assets/images/lifestyle-room.jpg" alt="Dos soportes de medallas montados en la pared de una habitación" />
-        <img src="assets/images/lifestyle-gym.jpg" alt="Soportes de medallas en un gimnasio" />
-        <img src="assets/images/dimensions.jpg" alt="Plano técnico con medidas 400x272x2mm" />
+        <img src="assets/images/hero-detail.png" alt="Medal rack on a wall holding a Brooklyn Half race bib and a full row of marathon medals" class="active" />
+        <img src="assets/images/front-white.png" alt="Front view of the medal display rack with race bib and medals" />
+        <img src="assets/images/lifestyle-room.jpg" alt="Two medal racks mounted on a bedroom wall next to a bookshelf" />
+        <img src="assets/images/lifestyle-gym.jpg" alt="Medal racks displayed above a dumbbell bench in a home gym" />
+        <img src="assets/images/dimensions.jpg" alt="Technical drawing of the rack with dimensions 400 x 272 x 2 mm" />
         <div class="gallery-float tl">
-          <div class="gf-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0f1115" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.8 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg>
-          </div>
-          <div class="gf-txt"><strong>Portadorsal</strong><span>Bolsa transparente superior</span></div>
+          <div class="gf-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8"/></svg></div>
+          <div class="gf-txt"><strong>Bib holder</strong><span>Clear top pocket</span></div>
         </div>
         <div class="gallery-float br">
-          <div class="gf-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0f1115" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 14l-2 7 5-3 5 3-2-7"/></svg>
-          </div>
-          <div class="gf-txt"><strong>+20 medallas</strong><span>Doble barra reforzada</span></div>
+          <div class="gf-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg></div>
+          <div class="gf-txt"><strong>20+ medals</strong><span>Reinforced double bar</span></div>
         </div>
       </div>
-      <div class="thumbs" id="thumbs">
-        <button class="thumb active" data-i="0"><img src="assets/images/hero-detail.png" alt="Detalle" /></button>
-        <button class="thumb" data-i="1"><img src="assets/images/front-white.png" alt="Frontal" /></button>
-        <button class="thumb" data-i="2"><img src="assets/images/lifestyle-room.jpg" alt="Habitación" /></button>
-        <button class="thumb" data-i="3"><img src="assets/images/lifestyle-gym.jpg" alt="Gimnasio" /></button>
-        <button class="thumb" data-i="4"><img src="assets/images/dimensions.jpg" alt="Medidas" /></button>
+      <div class="thumbs" id="thumbs" role="tablist" aria-label="Product images">
+        <button class="thumb active" data-i="0" aria-label="Wall detail"><img src="assets/images/hero-detail.png" alt="" /></button>
+        <button class="thumb" data-i="1" aria-label="Front view"><img src="assets/images/front-white.png" alt="" /></button>
+        <button class="thumb" data-i="2" aria-label="In a bedroom"><img src="assets/images/lifestyle-room.jpg" alt="" /></button>
+        <button class="thumb" data-i="3" aria-label="In a home gym"><img src="assets/images/lifestyle-gym.jpg" alt="" /></button>
+        <button class="thumb" data-i="4" aria-label="Dimensions"><img src="assets/images/dimensions.jpg" alt="" /></button>
       </div>
     </div>
   </div>
 </section>
 
 <!-- MARQUEE -->
-<div class="marquee">
+<div class="marquee" aria-hidden="true">
   <div class="marquee-track">
-    <span>Maratón</span><span>Media maratón</span><span>Trail</span><span>Triatlón</span><span>Ciclismo</span><span>Trofeos</span><span>Dorsales de carrera</span>
-    <span>Maratón</span><span>Media maratón</span><span>Trail</span><span>Triatlón</span><span>Ciclismo</span><span>Trofeos</span><span>Dorsales de carrera</span>
+    <span>Marathon</span><span>Half Marathon</span><span>Trail</span><span>Triathlon</span><span>Cycling</span><span>Obstacle Race</span><span>Race Bibs</span>
+    <span>Marathon</span><span>Half Marathon</span><span>Trail</span><span>Triathlon</span><span>Cycling</span><span>Obstacle Race</span><span>Race Bibs</span>
   </div>
 </div>
+
+<!-- VALUE STRIP -->
+<section class="value" style="padding:70px 0">
+  <div class="wrap">
+    <div class="vstat"><div class="n cond"><span class="accent">20+</span></div><div class="l">Medals on one rack</div></div>
+    <div class="vstat"><div class="n cond">2<span style="font-size:.5em">mm</span></div><div class="l">Ultra-slim profile</div></div>
+    <div class="vstat"><div class="n cond">1</div><div class="l">Bib pocket up top</div></div>
+    <div class="vstat"><div class="n cond"><span class="accent">★</span> 4.9</div><div class="l">Verified buyer rating</div></div>
+  </div>
+</section>
 
 <!-- FEATURES -->
 <section class="features" id="features">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="eyebrow">Por qué te encantará</div>
-      <h2>Diseñado para lucir tu esfuerzo</h2>
-      <p>Cada detalle pensado para que tus logros se conserven perfectos durante años.</p>
+      <div class="eyebrow">Why runners love it</div>
+      <h2>Built to show off every finish line</h2>
+      <p>Every detail engineered so your hard-earned hardware looks its best for years.</p>
     </div>
     <div class="feat-grid">
       <div class="feat-card reveal">
-        <div class="feat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <h3>Acero premium</h3>
-        <p>Estructura metálica robusta con acabado negro mate que soporta el peso de una colección completa sin doblarse.</p>
+        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Premium coated steel</h3>
+        <p>A sturdy matte-black steel frame that holds a full collection without bending or sagging over time.</p>
       </div>
       <div class="feat-card reveal">
-        <div class="feat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>
-        <h3>Portadorsal integrado</h3>
-        <p>Bolsa transparente en la parte superior para exhibir y proteger tu dorsal favorito junto a las medallas.</p>
+        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <h3>Built-in bib holder</h3>
+        <p>A clear top pocket displays and protects your favorite race bib right above your medals.</p>
       </div>
       <div class="feat-card reveal">
-        <div class="feat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 15l2 2 4-4"/></svg></div>
-        <h3>Todo incluido</h3>
-        <p>Viene con tornillos y tacos de pared. Se instala en minutos y queda firme sobre cualquier superficie.</p>
+        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 15l2 2 4-4"/></svg></div>
+        <h3>Everything included</h3>
+        <p>Ships with screws and wall plugs, so it mounts firmly on any wall in minutes — no extra trip to the store.</p>
       </div>
       <div class="feat-card reveal">
-        <div class="feat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-        <h3>Doble barra</h3>
-        <p>Dos barras superpuestas para colgar más de 20 medallas ordenadas por capas, sin que se amontonen.</p>
+        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18M3 15h18"/></svg></div>
+        <h3>Double hanging bar</h3>
+        <p>Two stacked bars let you layer 20+ medals in a clean, organized display instead of a tangled pile.</p>
       </div>
       <div class="feat-card reveal">
-        <div class="feat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div>
-        <h3>Perfil ultrafino</h3>
-        <p>Solo 2 mm de grosor. Se apoya en la pared con un diseño minimalista que combina con cualquier decoración.</p>
+        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div>
+        <h3>Ultra-slim profile</h3>
+        <p>Just 2 mm thick, it sits flush to the wall with a minimalist look that fits any room.</p>
       </div>
       <div class="feat-card reveal">
-        <div class="feat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
-        <h3>Motivación diaria</h3>
-        <p>Convierte un rincón de tu casa o gimnasio en un muro de logros que te impulsa a seguir sumando metas.</p>
+        <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
+        <h3>Daily motivation</h3>
+        <p>Turn a corner of your home or gym into a wall of achievements that pushes you toward the next race.</p>
       </div>
     </div>
   </div>
@@ -429,18 +430,18 @@
 <section id="showcase">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="eyebrow">En casa o en el gimnasio</div>
-      <h2>Se ve increíble en cualquier pared</h2>
-      <p>Combina varios soportes para crear tu propia galería de campeón.</p>
+      <div class="eyebrow">Home or gym</div>
+      <h2>Looks incredible on any wall</h2>
+      <p>Group several racks together to build your own champion's gallery.</p>
     </div>
     <div class="showcase-grid">
       <div class="showcase-card reveal">
-        <img src="assets/images/lifestyle-room.jpg" alt="Dos soportes de medallas en la pared de una habitación junto a una estantería" />
-        <div class="showcase-cap"><strong>En tu habitación</strong><span>Un recuerdo elegante y siempre presente</span></div>
+        <img src="assets/images/lifestyle-room.jpg" alt="Two medal racks on a bedroom wall beside a wooden bookshelf" />
+        <div class="showcase-cap"><strong>In your bedroom</strong><span>An elegant, always-on reminder</span></div>
       </div>
       <div class="showcase-card reveal">
-        <img src="assets/images/lifestyle-gym.jpg" alt="Soportes de medallas montados en un gimnasio con mancuernas" />
-        <div class="showcase-cap"><strong>En tu gimnasio</strong><span>Motívate en cada entrenamiento</span></div>
+        <img src="assets/images/lifestyle-gym.jpg" alt="Medal racks mounted in a home gym above a dumbbell bench" />
+        <div class="showcase-cap"><strong>In your gym</strong><span>Fuel every single workout</span></div>
       </div>
     </div>
   </div>
@@ -450,20 +451,20 @@
 <section class="specs" id="specs">
   <div class="wrap specs-grid">
     <div class="specs-visual reveal">
-      <img src="assets/images/dimensions.jpg" alt="Plano técnico del soporte con medidas 400 x 272 x 2 mm" />
+      <img src="assets/images/dimensions.jpg" alt="Technical drawing of the rack showing dimensions 400 x 272 x 2 mm" />
     </div>
     <div class="reveal">
-      <div class="eyebrow">Especificaciones</div>
-      <h2 style="font-size:clamp(28px,3.4vw,38px)">Medidas exactas, calidad real</h2>
+      <div class="eyebrow">Specifications</div>
+      <h2 style="font-size:clamp(34px,4.2vw,48px)">Exact measurements, real quality</h2>
       <div class="specs-list">
-        <div class="spec-row"><span class="k">Dimensiones</span><span class="v">400 × 272 × 2 mm</span></div>
-        <div class="spec-row"><span class="k">Material</span><span class="v">Acero con recubrimiento</span></div>
-        <div class="spec-row"><span class="k">Color</span><span class="v">Negro mate</span></div>
-        <div class="spec-row"><span class="k">Capacidad</span><span class="v">+20 medallas + 1 dorsal</span></div>
-        <div class="spec-row"><span class="k">Montaje</span><span class="v">A pared (tornillos incluidos)</span></div>
-        <div class="spec-row"><span class="k">Contenido</span><span class="v">1 soporte + kit de fijación</span></div>
+        <div class="spec-row"><span class="k">Dimensions</span><span class="v cond">400 × 272 × 2 mm</span></div>
+        <div class="spec-row"><span class="k">Material</span><span class="v cond">Coated steel</span></div>
+        <div class="spec-row"><span class="k">Finish</span><span class="v cond">Matte black</span></div>
+        <div class="spec-row"><span class="k">Capacity</span><span class="v cond">20+ medals + 1 bib</span></div>
+        <div class="spec-row"><span class="k">Package</span><span class="v cond">1 PC + mounting kit</span></div>
+        <div class="spec-row"><span class="k">Ships from</span><span class="v cond">China Mainland</span></div>
       </div>
-      <a href="#buy" class="btn-primary" style="margin-top:26px">Añadir al carrito
+      <a href="#buy" class="btn-primary" style="margin-top:28px">Get yours today
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
     </div>
@@ -474,32 +475,40 @@
 <section id="reviews">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="eyebrow">Opiniones verificadas</div>
-      <h2>Lo que dicen quienes ya lo tienen</h2>
+      <div class="eyebrow">Verified reviews</div>
+      <h2>What buyers are saying</h2>
     </div>
 
     <div class="rev-top reveal">
       <div class="rev-score">
-        <div class="num">4.9</div>
-        <div class="stars">
+        <div class="num cond">4.9</div>
+        <div class="stars" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 6 21.4l1.4-6.8L2.3 9.9l6.9-.8z"/></svg>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 6 21.4l1.4-6.8L2.3 9.9l6.9-.8z"/></svg>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 6 21.4l1.4-6.8L2.3 9.9l6.9-.8z"/></svg>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 6 21.4l1.4-6.8L2.3 9.9l6.9-.8z"/></svg>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 6 21.4l1.4-6.8L2.3 9.9l6.9-.8z"/></svg>
         </div>
-        <div class="cnt">Basado en compradores reales</div>
+        <div class="cnt">Based on real AliExpress buyers</div>
       </div>
       <div class="rev-bars">
-        <div class="rev-bar"><span class="lbl">5★</span><div class="track"><div class="fill" data-w="92"></div></div></div>
-        <div class="rev-bar"><span class="lbl">4★</span><div class="track"><div class="fill" data-w="6"></div></div></div>
+        <div class="rev-bar"><span class="lbl">5★</span><div class="track"><div class="fill" data-w="93"></div></div></div>
+        <div class="rev-bar"><span class="lbl">4★</span><div class="track"><div class="fill" data-w="5"></div></div></div>
         <div class="rev-bar"><span class="lbl">3★</span><div class="track"><div class="fill" data-w="2"></div></div></div>
         <div class="rev-bar"><span class="lbl">2★</span><div class="track"><div class="fill" data-w="0"></div></div></div>
         <div class="rev-bar"><span class="lbl">1★</span><div class="track"><div class="fill" data-w="0"></div></div></div>
       </div>
     </div>
 
-    <div class="rev-grid" id="revGrid"></div>
+    <div class="carousel reveal">
+      <div class="carousel-track" id="revTrack" tabindex="0" role="group" aria-roledescription="carousel" aria-label="Customer reviews"></div>
+      <p class="sr-only" id="revStatus" aria-live="polite"></p>
+      <div class="carousel-ctrl">
+        <button class="arrow" id="revPrev" aria-label="Previous reviews"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <div class="dots" id="revDots"></div>
+        <button class="arrow" id="revNext" aria-label="Next reviews"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -507,29 +516,29 @@
 <section class="faq" id="faq">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="eyebrow">Preguntas frecuentes</div>
-      <h2>Todo lo que necesitas saber</h2>
+      <div class="eyebrow">FAQ</div>
+      <h2>Everything you need to know</h2>
     </div>
     <div class="faq-list">
       <div class="faq-item reveal">
-        <button class="faq-q">¿Vienen incluidos los tornillos y tacos? <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
-        <div class="faq-a"><p>Sí. Cada soporte incluye el kit de fijación completo con tornillos y tacos de pared, tal como confirman nuestros compradores. Solo necesitas un taladro.</p></div>
+        <button class="faq-q" aria-expanded="false">Are screws and wall plugs included? <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="faq-a"><p>Yes. Every rack ships with a complete mounting kit — screws and wall plugs included, as verified buyers confirm. All you need is a drill.</p></div>
       </div>
       <div class="faq-item reveal">
-        <button class="faq-q">¿Cuántas medallas soporta? <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
-        <div class="faq-a"><p>Gracias a su doble barra reforzada puede sostener más de 20 medallas organizadas por capas, además del dorsal en la bolsa superior.</p></div>
+        <button class="faq-q" aria-expanded="false">How many medals does it hold? <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="faq-a"><p>Thanks to its reinforced double bar it comfortably holds 20+ medals layered neatly, plus one race bib in the clear top pocket.</p></div>
       </div>
       <div class="faq-item reveal">
-        <button class="faq-q">¿Qué medidas tiene? <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
-        <div class="faq-a"><p>El soporte mide 400 × 272 × 2 mm. Su perfil ultrafino de solo 2 mm lo mantiene discreto y elegante contra la pared.</p></div>
+        <button class="faq-q" aria-expanded="false">What are the dimensions? <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="faq-a"><p>The rack measures 400 × 272 × 2 mm. Its ultra-slim 2 mm profile keeps it discreet and elegant against the wall.</p></div>
       </div>
       <div class="faq-item reveal">
-        <button class="faq-q">¿Es difícil de instalar? <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
-        <div class="faq-a"><p>Para nada. Nuestros clientes destacan lo fácil que es montarlo. Con el kit incluido queda instalado y firme en unos 5 minutos.</p></div>
+        <button class="faq-q" aria-expanded="false">Is it hard to install? <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="faq-a"><p>Not at all. Buyers highlight how easy it is to mount — with the included kit it's firmly on the wall in about five minutes.</p></div>
       </div>
       <div class="faq-item reveal">
-        <button class="faq-q">¿El dorsal se ve bien protegido? <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
-        <div class="faq-a"><p>Sí. La bolsa transparente superior mantiene tu dorsal a la vista y protegido del polvo, conservándolo como nuevo.</p></div>
+        <button class="faq-q" aria-expanded="false">Where does it ship from? <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="faq-a"><p>It ships from China Mainland with worldwide delivery. Reviewers report on-time shipping and fast delivery.</p></div>
       </div>
     </div>
   </div>
@@ -539,20 +548,19 @@
 <div class="cta-band" id="buy">
   <div class="wrap">
     <div class="cta-inner reveal">
-      <h2>Empieza a exhibir tus logros hoy</h2>
-      <p>Ordena tu MedalWall y transforma tus carreras en el mejor recuerdo de tu pared.</p>
-      <div class="cta-price">
-        <span class="now">29,90 €</span>
-        <span class="was">44,90 €</span>
-        <span class="off">-33%</span>
-      </div>
+      <h2 class="cond">Start showing off<br/>your achievements</h2>
+      <p>Order your MedalWall and turn every race into the best kind of trophy — right on your wall.</p>
       <div>
-        <button class="btn-primary" id="buyBtn">
-          Añadir al carrito
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M6 6L5 3H2"/></svg>
-        </button>
+        <a href="https://www.aliexpress.com/item/1005010653642008.html" target="_blank" rel="noopener" class="btn-primary" id="buyBtn">
+          View on AliExpress
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+        </a>
       </div>
-      <p style="margin-top:20px;font-size:14px">Tacos de pared incluidos · Entrega en todo el mundo</p>
+      <div class="cta-badges">
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Wall plugs included</span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20 15 15 0 010-20"/></svg> Worldwide shipping</span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 6 21.4l1.4-6.8L2.3 9.9l6.9-.8z"/></svg> 4.9 verified rating</span>
+      </div>
     </div>
   </div>
 </div>
@@ -562,118 +570,167 @@
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <a href="#top" class="logo"><span class="logo-mark">M</span> MedalWall</a>
-        <p>El soporte de acero premium para exhibir tus medallas y dorsales de carrera con orgullo.</p>
+        <a href="#top" class="logo cond"><span class="logo-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg></span> MedalWall</a>
+        <p>The premium coated-steel rack for displaying your medals and race bibs with pride.</p>
       </div>
       <div class="foot-cols">
         <div class="foot-col">
-          <h4>Producto</h4>
-          <a href="#features">Características</a>
-          <a href="#specs">Especificaciones</a>
-          <a href="#reviews">Opiniones</a>
+          <h4>Product</h4>
+          <a href="#features">Features</a>
+          <a href="#specs">Specs</a>
+          <a href="#reviews">Reviews</a>
         </div>
         <div class="foot-col">
-          <h4>Ayuda</h4>
-          <a href="#faq">Preguntas frecuentes</a>
-          <a href="#buy">Comprar</a>
-          <a href="#showcase">Galería</a>
+          <h4>Help</h4>
+          <a href="#faq">FAQ</a>
+          <a href="#buy">Buy</a>
+          <a href="#showcase">Gallery</a>
         </div>
         <div class="foot-col">
-          <h4>Empieza</h4>
-          <a href="#buy">Añadir al carrito</a>
-          <a href="#top">Volver arriba</a>
+          <h4>Get started</h4>
+          <a href="https://www.aliexpress.com/item/1005010653642008.html" target="_blank" rel="noopener">View on AliExpress</a>
+          <a href="#top">Back to top</a>
         </div>
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 MedalWall. Todos los derechos reservados.</span>
-      <span>Diseñado para corredores, por corredores.</span>
+      <span>© 2026 MedalWall. All rights reserved.</span>
+      <span>Built for runners, by runners.</span>
     </div>
   </div>
 </footer>
 
 <div class="toast" id="toast">
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-  <span>¡Añadido al carrito!</span>
+  <span>Opening AliExpress…</span>
 </div>
 
 <script>
-  // ---- Reviews data ----
+  // ---- Reviews data (from AliExpress) ----
   const reviews = [
-    { t: "Bien fabricado y fácil de instalar en la pared. ¡Los tacos también vienen incluidos! 💯", n: "AliExpress Shopper", d: "10 Abr 2026", v: true },
-    { t: "¡Perfecto! ¡Gran calidad! ¡Envío y entrega puntuales! ¡La mejor compra!", n: "AliExpress Shopper", d: "10 Sep 2026", v: true },
-    { t: "¡Funciona como se espera! Tan bien fabricado como debe ser.", n: "U***r", d: "30 Mar 2026", v: true },
-    { t: "Genial y de muy buena calidad.", n: "AliExpress Shopper", d: "09 Feb 2026", v: true },
-    { t: "Exactamente como se anuncia, estoy satisfecho.", n: "R***n", d: "01 Mar 2026", v: true },
-    { t: "Excelente.", n: "Y***l", d: "14 Ene 2026", v: true },
-    { t: "Maravilloso e increíble, estoy impactado con este producto.", n: "AliExpress Shopper", d: "14 Jul 2026", v: true },
-    { t: "Muy bonito y entrega rápida.", n: "AliExpress Shopper", d: "27 Mar 2026", v: true },
-    { t: "Lo recomiendo.", n: "A***s", d: "30 Dic 2025", v: true }
+    { t: "Well-made and easy to install on the wall. The wall plugs are also included 💯", n: "AliExpress Shopper", d: "10 Apr 2026" },
+    { t: "Perfect! Great quality! Shipping and delivery on time! Best purchase!", n: "AliExpress Shopper", d: "10 Sep 2026" },
+    { t: "Works as intended! About as well made as it needs to be.", n: "U***r", d: "30 Mar 2026" },
+    { t: "Great and very good quality.", n: "AliExpress Shopper", d: "09 Feb 2026" },
+    { t: "Exactly as advertised, I am satisfied.", n: "R***n", d: "01 Mar 2026" },
+    { t: "Excellent.", n: "Y***l", d: "14 Jan 2026" },
+    { t: "Wonderful and amazing, I'm impacted with this product.", n: "AliExpress Shopper", d: "14 Jul 2026" },
+    { t: "Very nice and fast delivery.", n: "AliExpress Shopper", d: "27 Mar 2026" },
+    { t: "I recommend.", n: "A***s", d: "30 Dec 2025" }
   ];
-  const colors = ["#111318","#d9a441","#3b6fb5","#c0563f","#2f8f6b","#7a52b3","#b5433f","#455a64","#a37b1e"];
-  const starSVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 6 21.4l1.4-6.8L2.3 9.9l6.9-.8z"/></svg>';
-  const grid = document.getElementById('revGrid');
-  grid.innerHTML = reviews.map((r,i)=>`
-    <div class="rev-card reveal">
-      <div class="stars">${starSVG.repeat(5)}</div>
+  const colors = ["#2563eb","#e8b23a","#0b0d10","#c0563f","#2f8f6b","#7a52b3","#b5433f","#455a64","#1d4ed8"];
+  const starRow = '<div class="stars" aria-hidden="true">' + '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 6 21.4l1.4-6.8L2.3 9.9l6.9-.8z"/></svg>'.repeat(5) + '</div>';
+  const track = document.getElementById('revTrack');
+  track.innerHTML = reviews.map((r,i)=>`
+    <article class="rev-card">
+      ${starRow}
       <p>${r.t}</p>
       <div class="rev-meta">
-        <div class="rev-av" style="background:${colors[i%colors.length]}">${r.n.charAt(0).toUpperCase()}</div>
+        <div class="rev-av cond" style="background:${colors[i%colors.length]}">${r.n.charAt(0).toUpperCase()}</div>
         <div class="who"><strong>${r.n}</strong><span>${r.d}</span></div>
-        ${r.v ? '<span class="verified"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Verificado</span>' : ''}
+        <span class="verified"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Verified</span>
       </div>
-    </div>`).join('');
+    </article>`).join('');
 
-  // ---- Gallery ----
+  // ---- Accessible review carousel ----
+  const cards = [...track.querySelectorAll('.rev-card')];
+  const prevBtn = document.getElementById('revPrev');
+  const nextBtn = document.getElementById('revNext');
+  const dotsWrap = document.getElementById('revDots');
+  const status = document.getElementById('revStatus');
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function step() { const s = cards[1] ? cards[1].offsetLeft - cards[0].offsetLeft : cards[0].offsetWidth + 22; return s; }
+  function visibleCount() { return Math.max(1, Math.round(track.clientWidth / step())); }
+  function pageCount() { return Math.max(1, cards.length - visibleCount() + 1); }
+  let curIndex = 0;
+
+  // dots
+  function buildDots(){
+    dotsWrap.innerHTML = '';
+    for (let i=0;i<pageCount();i++){
+      const b = document.createElement('button');
+      b.setAttribute('aria-label', 'Go to review '+(i+1));
+      b.addEventListener('click', ()=>goTo(i, true));
+      dotsWrap.appendChild(b);
+    }
+  }
+  function goTo(i, user){
+    curIndex = Math.max(0, Math.min(i, pageCount()-1));
+    track.scrollTo({ left: curIndex * step(), behavior: reduceMotion ? 'auto' : 'smooth' });
+    syncUI();
+    if (user) restartAuto();
+  }
+  function syncUI(){
+    [...dotsWrap.children].forEach((d,i)=>d.classList.toggle('active', i===curIndex));
+    status.textContent = `Review ${curIndex+1} of ${pageCount()}`;
+    prevBtn.disabled = false; nextBtn.disabled = false;
+  }
+  prevBtn.addEventListener('click', ()=>goTo(curIndex-1 < 0 ? pageCount()-1 : curIndex-1, true));
+  nextBtn.addEventListener('click', ()=>goTo((curIndex+1) % pageCount(), true));
+
+  // keep index in sync when user scrolls/swipes
+  let scrollRAF;
+  track.addEventListener('scroll', ()=>{
+    cancelAnimationFrame(scrollRAF);
+    scrollRAF = requestAnimationFrame(()=>{
+      const i = Math.round(track.scrollLeft / step());
+      if (i !== curIndex){ curIndex = Math.max(0, Math.min(i, pageCount()-1)); syncUI(); }
+    });
+  });
+  // keyboard on the track
+  track.addEventListener('keydown', (e)=>{
+    if (e.key === 'ArrowRight'){ e.preventDefault(); goTo((curIndex+1)%pageCount(), true); }
+    if (e.key === 'ArrowLeft'){ e.preventDefault(); goTo(curIndex-1<0?pageCount()-1:curIndex-1, true); }
+  });
+
+  // autoplay (pauses on hover/focus, off for reduced motion)
+  let autoTimer;
+  function startAuto(){ if (reduceMotion) return; autoTimer = setInterval(()=>goTo((curIndex+1)%pageCount(), false), 5000); }
+  function stopAuto(){ clearInterval(autoTimer); }
+  function restartAuto(){ stopAuto(); startAuto(); }
+  ['mouseenter','focusin'].forEach(ev=>track.addEventListener(ev, stopAuto));
+  ['mouseleave','focusout'].forEach(ev=>track.addEventListener(ev, startAuto));
+
+  buildDots(); syncUI(); startAuto();
+  addEventListener('resize', ()=>{ buildDots(); goTo(Math.min(curIndex, pageCount()-1), false); });
+
+  // ---- Hero gallery ----
   const imgs = document.querySelectorAll('#galleryMain img');
   const thumbs = document.querySelectorAll('#thumbs .thumb');
-  let cur = 0, autoTimer;
-  function setImg(i){
-    imgs[cur].classList.remove('active'); thumbs[cur].classList.remove('active');
-    cur = i;
-    imgs[cur].classList.add('active'); thumbs[cur].classList.add('active');
-  }
-  thumbs.forEach(t=>t.addEventListener('click',()=>{ setImg(+t.dataset.i); resetAuto(); }));
-  function resetAuto(){ clearInterval(autoTimer); autoTimer = setInterval(()=>setImg((cur+1)%imgs.length), 4500); }
-  resetAuto();
+  let gCur = 0, gTimer;
+  function setImg(i){ imgs[gCur].classList.remove('active'); thumbs[gCur].classList.remove('active'); gCur=i; imgs[gCur].classList.add('active'); thumbs[gCur].classList.add('active'); }
+  thumbs.forEach(t=>t.addEventListener('click',()=>{ setImg(+t.dataset.i); resetG(); }));
+  function resetG(){ clearInterval(gTimer); if(!reduceMotion) gTimer=setInterval(()=>setImg((gCur+1)%imgs.length),4500); }
+  resetG();
 
   // ---- Header shadow ----
   const header = document.getElementById('header');
-  addEventListener('scroll',()=>header.classList.toggle('scrolled', scrollY > 8));
+  addEventListener('scroll',()=>header.classList.toggle('scrolled', scrollY>8));
 
   // ---- Mobile menu ----
   const burger = document.getElementById('burger');
   const menu = document.getElementById('mobileMenu');
-  burger.addEventListener('click',()=>menu.classList.toggle('open'));
-  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
+  burger.addEventListener('click',()=>{ const open = menu.classList.toggle('open'); burger.setAttribute('aria-expanded', open); });
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ menu.classList.remove('open'); burger.setAttribute('aria-expanded','false'); }));
 
   // ---- FAQ accordion ----
   document.querySelectorAll('.faq-q').forEach(q=>{
     q.addEventListener('click',()=>{
-      const item = q.parentElement;
-      const ans = item.querySelector('.faq-a');
-      const open = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(it=>{ it.classList.remove('open'); it.querySelector('.faq-a').style.maxHeight = null; });
-      if(!open){ item.classList.add('open'); ans.style.maxHeight = ans.scrollHeight + 'px'; }
+      const item = q.parentElement, ans = item.querySelector('.faq-a'), open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(it=>{ it.classList.remove('open'); it.querySelector('.faq-a').style.maxHeight=null; it.querySelector('.faq-q').setAttribute('aria-expanded','false'); });
+      if(!open){ item.classList.add('open'); ans.style.maxHeight = ans.scrollHeight+'px'; q.setAttribute('aria-expanded','true'); }
     });
   });
 
-  // ---- Toast ----
+  // ---- Toast on buy ----
   const toast = document.getElementById('toast');
-  function showToast(){ toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'), 2600); }
-  document.getElementById('buyBtn').addEventListener('click', showToast);
+  document.getElementById('buyBtn').addEventListener('click',()=>{ toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),2600); });
 
   // ---- Reveal on scroll + rating bars ----
   const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        e.target.classList.add('in');
-        e.target.querySelectorAll?.('.fill').forEach(f=>f.style.width = f.dataset.w + '%');
-        io.unobserve(e.target);
-      }
-    });
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); e.target.querySelectorAll?.('.fill').forEach(f=>f.style.width=f.dataset.w+'%'); io.unobserve(e.target); } });
   }, { threshold: .12 });
-  // observe reveals (including dynamically added review cards)
   requestAnimationFrame(()=>document.querySelectorAll('.reveal').forEach(el=>io.observe(el)));
   document.querySelectorAll('.rev-bars').forEach(el=>io.observe(el));
 </script>
